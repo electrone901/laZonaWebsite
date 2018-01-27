@@ -8,6 +8,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 
+// Requiring Routes
+const indexRoutes = require("./routes/index");
+
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -25,6 +28,8 @@ app.use(require("express-session")({
 // For passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("YelpCamp server has started");
