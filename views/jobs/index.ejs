@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Jobs</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/jobs/new">Add New Jobs</a>
+            </p>
+        </div>
+    </header>
+    
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+        <% jobs.forEach(function(job){ %>
+            <div class="col-md-12 col-sm-6">
+                <div class="thumbnail">
+                    <p><%= job.title %> - <%= job.description %></p>
+                    <span><%= job.date.toDateString() %> by <%= job.author.username %></span>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>

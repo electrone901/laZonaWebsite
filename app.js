@@ -11,6 +11,7 @@ const User = require("./models/user");
 
 // Requiring Routes
 const indexRoutes = require("./routes/index");
+const jobRoutes = require("./routes/jobs");
 
 mongoose.connect("mongodb://localhost/the_zone");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -42,7 +43,8 @@ app.use(function(req, res, next){
 });
 
 app.use(indexRoutes);
+app.use("/jobs", jobRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("YelpCamp server has started");
+    console.log("Zone server has started");
 });
