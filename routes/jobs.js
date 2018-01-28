@@ -41,22 +41,19 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("jobs/new");
 });
 
-/*
-// SHOW - shows more info about one campground
+// SHOW - shows more info about that job
 router.get("/:id", function(req, res){
-    // Find the campground with provided ID
-    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
+    Job.findById(req.params.id).populate("comments").exec(function(err, foundJob){
         if(err){
             console.log(err);
         }
         else{
-            console.log(foundCampground);
-             // Render show template with that campground
-            res.render("campgrounds/show", {campground: foundCampground});
+            console.log(foundJob);
+            res.render("jobs/show", {job: foundJob});
         }
     });
 });
-
+/*
 // EDIT CAMPGROUND ROUTE
 router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
     Campground.findById(req.params.id, function(err, foundCampground){
