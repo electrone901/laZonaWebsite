@@ -53,37 +53,37 @@ router.get("/:id", function(req, res){
         }
     });
 });
-/*
-// EDIT CAMPGROUND ROUTE
+
+// EDIT JOB ROUTE
 router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
-        res.render("campgrounds/edit", {campground: foundCampground});
+    Job.findById(req.params.id, function(err, foundJob){
+        res.render("jobs/edit", {job: foundJob});
     });
 });
 
-// UPDATE CAMPGROUND ROUTE
+// UPDATE JOB ROUTE
 router.put("/:id", middleware.checkJobOwnership, function(req, res){
-    // Find and update the correct campground
-    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+    Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
         if(err){
-            res.redirect("/campgrounds");
+            res.redirect("/jobs");
         }
         else{
-            res.redirect("/campgrounds/" + req.params.id);
+            res.redirect("/jobs/" + req.params.id);
         }
     });
 });
+
 
 // DESTROY CAMPGROUND ROUTE
 router.delete("/:id", middleware.checkJobOwnership, function(req, res){
-    Campground.findByIdAndRemove(req.params.id, function(err){
+    Job.findByIdAndRemove(req.params.id, function(err){
         if(err){
-            res.redirect("/campgrounds");
+            res.redirect("/jobs");
         }
         else{
-            res.redirect("/campgrounds");
+            res.redirect("/jobs");
         }
     });
 });
-*/
+
 module.exports = router;

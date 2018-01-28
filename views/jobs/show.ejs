@@ -19,6 +19,12 @@
                     <p>
                         <em>Submitted By <%= job.author.username %></em>
                     </p>
+                    <% if(currentUser && job.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-warning" href="/jobs/<%= job._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/jobs/<%= job._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
         </div>
