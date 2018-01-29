@@ -15,4 +15,4 @@ let jobSchema = new mongoose.Schema({
 });
 
 // Export
-module.exports = mongoose.model("Campground", jobSchema);
+module.exports = mongoose.model("Job", jobSchema);

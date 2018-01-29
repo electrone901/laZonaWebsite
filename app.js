@@ -8,12 +8,14 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 const User = require("./models/user");
+const Job = require("./models/job");
 
 // Requiring Routes
 const indexRoutes = require("./routes/index");
 const jobRoutes = require("./routes/jobs");
 
-mongoose.connect("mongodb://localhost/the_zone");
+//mongoose.connect("mongodb://localhost/the_zone");
+mongoose.connect("mongodb://song:12345@ds117888.mlab.com:17888/zone123");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
