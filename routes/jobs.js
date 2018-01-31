@@ -30,7 +30,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             console.log(err);
         }
         else{
-            console.log(newlyCreated);
+            req.flash("success", "Success");
             res.redirect("/jobs");
         }
     });
@@ -68,6 +68,7 @@ router.put("/:id", middleware.checkJobOwnership, function(req, res){
             res.redirect("/jobs");
         }
         else{
+            req.flash("success", "Edit Success");
             res.redirect("/jobs/" + req.params.id);
         }
     });
@@ -81,6 +82,7 @@ router.delete("/:id", middleware.checkJobOwnership, function(req, res){
             res.redirect("/jobs");
         }
         else{
+            req.flash("success", "Removed Success");
             res.redirect("/jobs");
         }
     });
