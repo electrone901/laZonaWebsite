@@ -7,7 +7,7 @@ const middleware = require("../middleware/index.js");
 router.get("/", function(req, res){
     Job.find({}, function(err, alljob){
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
         }
         else{
             res.render("jobs/index", {jobs: alljob, currentUser: req.user});
@@ -27,7 +27,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     let newJob = {title:title, description: des, date:date, author: author};
     Job.create(newJob, function(err, newlyCreated){
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
         }
         else{
             req.flash("success", "Success");
@@ -45,7 +45,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.get("/:id", function(req, res){
     Job.findById(req.params.id).populate("comments").exec(function(err, foundJob){
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
         }
         else{
             console.log(foundJob);
@@ -65,6 +65,7 @@ router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
 router.put("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
         if(err){
+            req.flash("error", err.message);
             res.redirect("/jobs");
         }
         else{
@@ -79,6 +80,7 @@ router.put("/:id", middleware.checkJobOwnership, function(req, res){
 router.delete("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndRemove(req.params.id, function(err){
         if(err){
+            req.flash("error", err.message);
             res.redirect("/jobs");
         }
         else{
