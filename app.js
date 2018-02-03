@@ -8,11 +8,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 const User = require("./models/user");
-const Job = require("./models/job");
-const Comment = require("./models/comment");
 
 // Requiring Routes
-const commentRoutes = require("./routes/comments");
+const jobcommentRoutes = require("./routes/jobComments");
 const indexRoutes = require("./routes/index");
 const jobRoutes = require("./routes/jobs");
 
@@ -38,7 +36,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware that run currentUser on every route
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
@@ -48,7 +45,7 @@ app.use(function(req, res, next){
 
 app.use(indexRoutes);
 app.use("/jobs", jobRoutes);
-app.use("/jobs/:id/comments", commentRoutes);
+app.use("/jobs/:id/comments", jobcommentRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Zone server has started");
