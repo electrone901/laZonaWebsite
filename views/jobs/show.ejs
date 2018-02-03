@@ -27,6 +27,24 @@
                     <% } %>
                 </div>
             </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/jobs/<%= job._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% job.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right">5 days ago</span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
         </div>
     </div>
 </div>

@@ -12,6 +12,12 @@ let jobSchema = new mongoose.Schema({
         },
         username: String
     },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
 });
 
 // Export

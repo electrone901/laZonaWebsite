@@ -1,4 +1,5 @@
 const Job = require("../models/job");
+const Comment = require("../models/comment");
 
 let middlewareObj = {};
 
@@ -22,6 +23,32 @@ middlewareObj.checkJobOwnership = function(req, res, next){
     }
     else{
         req.flash("error", "Please Login First");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkCommentOwnership = function(req, res, next){
+    // is user logged in?
+    if (req.isAuthenticated()){
+        Comment.findById(req.params.comment_id, function(err, foundComment){
+            if(err){
+                res.redirect("back");
+            }
+            else{
+                // does user own the comment?
+                if(foundComment.author.id.equals(req.user._id)){
+                    next();
+                }
+                else{
+                    req.flash("error", "Permission Required");
+                    res.redirect("back");
+                }
+            }
+        });
+    }
+    else{
+        req.flash("error", "Please Login First");
+        // back takes the user back by 1 page
         res.redirect("back");
     }
 };
