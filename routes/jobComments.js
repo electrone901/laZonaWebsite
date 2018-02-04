@@ -11,10 +11,10 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
     console.log(req.params.id);
     Job.findById(req.params.id, function(err, job){
         if(err){
-            console.log(err);
+            req.flash("error", err);
         }
         else{
-            res.render("comments/new", {job: job});
+            res.render("jobs/comments/new", {job: job});
         }
     });
 });
@@ -24,14 +24,13 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     // Lookup job using ID
     Job.findById(req.params.id, function(err, job){
         if(err){
-            console.log(err);
+            req.flash("error", err);
             res.redirect("/jobs");
         }
         else{
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
                     req.flash("error", "Something went wrong");
-                    console.log(err);
                     res.redirect("/jobs");
                 }
                 else{
@@ -44,7 +43,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     
                     job.comments.push(comment);
                     job.save();
-                    console.log(comment);
                     req.flash("success", "Successfully added comment");
                     res.redirect("/jobs/" + job._id);
                 }
@@ -57,10 +55,11 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
     Comment.findById(req.params.comment_id, function(err, foundComment){
         if(err){
+            req.flash("error", err);
             res.redirect("back");
         }
         else{
-            res.render("comments/edit", {job_id: req.params.id, comment: foundComment});
+            res.render("jobs/comments/edit", {job_id: req.params.id, comment: foundComment});
         }
     });
 });
@@ -69,9 +68,11 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if(err){
+            req.flash("error", err);
             res.redirect("back");
         }
         else{
+            req.flash("success", "Changes Saved");
             res.redirect("/jobs/" + req.params.id);
         }
     });
@@ -81,6 +82,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){
+            req.flash("error", err);
             res.redirect("back");
         }
         else{

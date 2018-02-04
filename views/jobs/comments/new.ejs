@@ -1,12 +1,12 @@
-<% include ../partials/header %>
+<% include ../../partials/header %>
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit Comment</h1>
+        <h1 style="text-align: center;">Add New Comment to <%= job.title %></h1>
         <div style="width:30%; margin: 25px auto;">
-            <form action="/jobs/<%= job_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <form action="/jobs/<%= job._id %>/comments" method="POST">
                 <div class="form-group">
-                    <textarea class="form-control" name="comment[text]" ><%= comment.text %></textarea>
+                    <textarea class="form-control" name="comment[text]" placeholder="comment"></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -17,4 +17,4 @@
     </div>
 </div>
 
-<% include ../partials/footer %>
+<% include ../../partials/footer %>

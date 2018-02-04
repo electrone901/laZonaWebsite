@@ -28,14 +28,12 @@ middlewareObj.checkJobOwnership = function(req, res, next){
 };
 
 middlewareObj.checkCommentOwnership = function(req, res, next){
-    // is user logged in?
     if (req.isAuthenticated()){
         Comment.findById(req.params.comment_id, function(err, foundComment){
             if(err){
                 res.redirect("back");
             }
             else{
-                // does user own the comment?
                 if(foundComment.author.id.equals(req.user._id)){
                     next();
                 }
@@ -48,7 +46,6 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
     }
     else{
         req.flash("error", "Please Login First");
-        // back takes the user back by 1 page
         res.redirect("back");
     }
 };
