@@ -50,4 +50,26 @@ router.get("/logout", function(req, res){
     
 });
 
+// Edit Profile
+router.get("/profile/:id", function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        res.render("profile", {user: foundUser});
+    });
+});
+
+// Update Profile
+router.put("/profile/:id", function(req, res){
+    User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updatedUser){
+        if(err){
+            req.flash("error", err);
+            res.redirect("back");
+        }
+        else{
+            req.flash("success", "Changes Saved");
+            res.redirect("/");
+        }
+    });
+});
+
+
 module.exports = router;
