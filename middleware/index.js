@@ -1,4 +1,5 @@
 const Job = require("../models/job");
+const Education = require("../models/education");
 const Comment = require("../models/comment");
 
 let middlewareObj = {};
@@ -12,6 +13,30 @@ middlewareObj.checkJobOwnership = function(req, res, next){
             }
             else{
                 if(foundJob.author.id.equals(req.user._id)){
+                    next();
+                }
+                else{
+                    req.flash("error", "Permission Required");
+                    res.redirect("back");
+                }
+            }
+        });
+    }
+    else{
+        req.flash("error", "Please Login First");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkEducationOwnership = function(req, res, next){
+    if (req.isAuthenticated()){
+        Education.findById(req.params.id, function(err, foundEducation){
+            if(err || !foundEducation){
+                req.flash("error", "Education not found");
+                res.redirect("back");
+            }
+            else{
+                if(foundEducation.author.id.equals(req.user._id)){
                     next();
                 }
                 else{

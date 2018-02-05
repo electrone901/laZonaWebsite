@@ -13,6 +13,7 @@ const User = require("./models/user");
 const jobcommentRoutes = require("./routes/jobComments");
 const indexRoutes = require("./routes/index");
 const jobRoutes = require("./routes/jobs");
+const educationRoutes = require("./routes/education");
 
 //mongoose.connect("mongodb://localhost/the_zone");
 mongoose.connect("mongodb://song:12345@ds117888.mlab.com:17888/zone123");
@@ -46,6 +47,7 @@ app.use(function(req, res, next){
 app.use(indexRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/comments", jobcommentRoutes);
+app.use("/education", educationRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Zone server has started");

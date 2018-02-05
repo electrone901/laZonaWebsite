@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-let jobSchema = new mongoose.Schema({
+let educationSchema = new mongoose.Schema({
     title: String,
     description: String,
     date: {type: Date, default: Date.now},
@@ -19,4 +19,4 @@ let jobSchema = new mongoose.Schema({
     ]
 });
 
-module.exports = mongoose.model("Job", jobSchema);
+module.exports = mongoose.model("Education", educationSchema);

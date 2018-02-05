@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Education</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/education/new">Add New Education</a>
+            </p>
+        </div>
+    </header>
+    
+    <div class="row">
+        <% education.forEach(function(subject){ %>
+            <div class="col-md-12 col-sm-6">
+                <div class="thumbnail">
+                    <a href="/education/<%= subject._id %>"><p><%= subject.title %> - <%= subject.description %></p></a>
+                    <span><%= subject.date.toDateString() %> by <%= subject.author.username %></span>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>
