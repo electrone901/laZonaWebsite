@@ -48,7 +48,6 @@ router.get("/:id", function(req, res){
             req.flash("error", err.message);
         }
         else{
-            console.log(foundJob);
             res.render("jobs/show", {job: foundJob});
         }
     });

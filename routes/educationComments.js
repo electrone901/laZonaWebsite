@@ -1,31 +1,26 @@
 const express = require("express");
-// mergeParams merge the params from the job and the comment together
 const router = express.Router({mergeParams: true});
-const Job = require("../models/job");
+const Education = require("../models/education");;
 const Comment = require("../models/comment");
 const middleware = require("../middleware/index.js");
 
-// COMMENTS ROUTES
-// Comments New
 router.get("/new", middleware.isLoggedIn, function(req, res){
     console.log(req.params.id);
-    Job.findById(req.params.id, function(err, job){
+    Education.findById(req.params.id, function(err, education){
         if(err){
             req.flash("error", err);
         }
         else{
-            res.render("jobs/comments/new", {job: job});
+            res.render("education/comments/new", {education: education});
         }
     });
 });
 
-// Comments Create
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // Lookup job using ID
-    Job.findById(req.params.id, function(err, job){
+    Education.findById(req.params.id, function(err, education){
         if(err){
             req.flash("error", err);
-            res.redirect("/jobs");
+            res.redirect("/education");
         }
         else{
             Comment.create(req.body.comment, function(err, comment){
@@ -34,24 +29,21 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     res.redirect("/jobs");
                 }
                 else{
-                    // Add username and id to comment
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
                     
-                    // Save comment
                     comment.save();
                     
-                    job.comments.push(comment);
-                    job.save();
+                    education.comments.push(comment);
+                    education.save();
                     req.flash("success", "Successfully added comment");
-                    res.redirect("/jobs/" + job._id);
+                    res.redirect("/education/" + education._id);
                 }
             });
         }
     });
 });
 
-// COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
     Comment.findById(req.params.comment_id, function(err, foundComment){
         if(err){
@@ -59,12 +51,11 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
             res.redirect("back");
         }
         else{
-            res.render("jobs/comments/edit", {job_id: req.params.id, comment: foundComment});
+            res.render("education/comments/edit", {education: req.params.id, comment: foundComment});
         }
     });
 });
 
-// COMMENT UPDATE
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if(err){
@@ -73,12 +64,11 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
         }
         else{
             req.flash("success", "Changes Saved");
-            res.redirect("/jobs/" + req.params.id);
+            res.redirect("/education/" + req.params.id);
         }
     });
 });
 
-// COMMENT DESTROY ROUTE
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){
@@ -87,7 +77,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
         }
         else{
             req.flash("success", "Comment Deleted");
-            res.redirect("/jobs/" + req.params.id);
+            res.redirect("/education/" + req.params.id);
         }
     });
 });

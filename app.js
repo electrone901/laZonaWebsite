@@ -10,10 +10,11 @@ const methodOverride = require("method-override");
 const User = require("./models/user");
 
 // Requiring Routes
-const jobcommentRoutes = require("./routes/jobComments");
 const indexRoutes = require("./routes/index");
 const jobRoutes = require("./routes/jobs");
+const jobcommentRoutes = require("./routes/jobComments");
 const educationRoutes = require("./routes/education");
+const educationCommentsRoutes = require("./routes/educationComments");
 
 //mongoose.connect("mongodb://localhost/the_zone");
 mongoose.connect("mongodb://song:12345@ds117888.mlab.com:17888/zone123");
@@ -48,6 +49,7 @@ app.use(indexRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/comments", jobcommentRoutes);
 app.use("/education", educationRoutes);
+app.use("/education/:id/comments", educationCommentsRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Zone server has started");
