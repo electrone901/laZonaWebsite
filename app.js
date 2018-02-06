@@ -45,11 +45,11 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use(indexRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/comments", jobcommentRoutes);
 app.use("/education", educationRoutes);
 app.use("/education/:id/comments", educationCommentsRoutes);
+app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Zone server has started");
