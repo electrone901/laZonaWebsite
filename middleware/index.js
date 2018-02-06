@@ -1,5 +1,6 @@
 const Job = require("../models/job");
 const Education = require("../models/education");
+const Apartment = require("../models/apartment");
 const Comment = require("../models/comment");
 
 let middlewareObj = {};
@@ -37,6 +38,30 @@ middlewareObj.checkEducationOwnership = function(req, res, next){
             }
             else{
                 if(foundEducation.author.id.equals(req.user._id)){
+                    next();
+                }
+                else{
+                    req.flash("error", "Permission Required");
+                    res.redirect("back");
+                }
+            }
+        });
+    }
+    else{
+        req.flash("error", "Please Login First");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkApartmentOwnership = function(req, res, next){
+    if (req.isAuthenticated()){
+        Apartment.findById(req.params.id, function(err, foundApartment){
+            if(err || !foundApartment){
+                req.flash("error", "Apartment not found");
+                res.redirect("back");
+            }
+            else{
+                if(foundApartment.author.id.equals(req.user._id)){
                     next();
                 }
                 else{
