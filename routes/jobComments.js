@@ -8,7 +8,6 @@ const middleware = require("../middleware/index.js");
 // COMMENTS ROUTES
 // Comments New
 router.get("/new", middleware.isLoggedIn, function(req, res){
-    console.log(req.params.id);
     Job.findById(req.params.id, function(err, job){
         if(err){
             req.flash("error", err);

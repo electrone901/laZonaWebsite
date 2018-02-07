@@ -5,7 +5,6 @@ const Comment = require("../models/comment");
 const middleware = require("../middleware/index.js");
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
-    console.log(req.params.id);
     Apartment.findById(req.params.id, function(err, apartment){
         if(err){
             req.flash("error", err);
