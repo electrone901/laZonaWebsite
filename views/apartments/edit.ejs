@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit <%= apartment.name %></h1>
-        <div style="width:30%; margin: 25px auto;">
+        <h1 class="center">Edit <%= apartment.name %></h1>
+        <div class="form">
             <form action="/apartments/<%= apartment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <input class="form-control" type="text" name="apartment[name]" value="<%= apartment.name %>">

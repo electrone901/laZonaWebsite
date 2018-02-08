@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Add New Comment to <%= apartment.title %></h1>
-        <div style="width:30%; margin: 25px auto;">
+        <h1 class="center">Add New Comment to <%= apartment.title %></h1>
+        <div class="form">
             <form action="/apartments/<%= apartment._id %>/comments" method="POST">
                 <div class="form-group">
                     <textarea class="form-control" name="comment[text]" placeholder="comment"></textarea>

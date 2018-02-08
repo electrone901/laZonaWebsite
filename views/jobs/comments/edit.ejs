@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Edit Comment</h1>
-        <div style="width:30%; margin: 25px auto;">
+        <h1 class="center">Edit Comment</h1>
+        <div class="form">
             <form action="/jobs/<%= job_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <textarea class="form-control" name="comment[text]" ><%= comment.text %></textarea>
