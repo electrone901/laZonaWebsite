@@ -50,7 +50,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
             res.redirect("back");
         }
         else{
-            res.render("apartments/comments/edit", {apartment: req.params.id, comment: foundComment});
+            res.render("apartments/comments/edit", {apartment_id: req.params.id, comment: foundComment});
         }
     });
 });

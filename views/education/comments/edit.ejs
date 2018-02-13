@@ -4,7 +4,7 @@
     <div class="row">
         <h1 class="center">Edit Comment</h1>
         <div class="form">
-            <form action="/education/<%= education %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+            <form action="/education/<%= education_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                     <textarea class="form-control" name="comment[text]" ><%= comment.text %></textarea>
                 </div>
@@ -12,7 +12,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit</button>
                 </div>
             </form>
-            <a href="/education/<%= education %>">Go back</a>
+            <a href="/education/<%= education_id %>">Go back</a>
         </div>
     </div>
 </div>

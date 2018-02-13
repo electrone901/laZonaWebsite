@@ -1,12 +1,9 @@
 const express = require("express");
-// mergeParams merge the params from the job and the comment together
 const router = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Comment = require("../models/comment");
 const middleware = require("../middleware/index.js");
 
-// COMMENTS ROUTES
-// Comments New
 router.get("/new", middleware.isLoggedIn, function(req, res){
     Job.findById(req.params.id, function(err, job){
         if(err){
@@ -18,9 +15,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// Comments Create
 router.post("/", middleware.isLoggedIn, function(req, res){
-    // Lookup job using ID
     Job.findById(req.params.id, function(err, job){
         if(err){
             req.flash("error", err);
@@ -50,7 +45,6 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
     Comment.findById(req.params.comment_id, function(err, foundComment){
         if(err){
@@ -63,7 +57,6 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
     });
 });
 
-// COMMENT UPDATE
 router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
         if(err){
@@ -77,7 +70,6 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     });
 });
 
-// COMMENT DESTROY ROUTE
 router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if(err){

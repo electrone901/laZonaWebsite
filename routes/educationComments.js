@@ -51,7 +51,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
             res.redirect("back");
         }
         else{
-            res.render("education/comments/edit", {education: req.params.id, comment: foundComment});
+            res.render("education/comments/edit", {education_id: req.params.id, comment: foundComment});
         }
     });
 });
