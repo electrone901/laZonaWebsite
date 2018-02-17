@@ -6,18 +6,19 @@
         <div class="form">
             <form action="/profile/<%= currentUser.id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <label for="username">Username: <%= currentUser.username %></label>
+                    <label class="label label-info" for="username">Username</label><br>
+                    <input class="form-control" type="text" placeholder=<%= currentUser.username %> readonly>
                 </div>
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+                    <label class="label label-info" for="firstName">First Name</label>
                     <input class="form-control" type="text" name="user[firstName]" value="<%= currentUser.firstName %>">
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last Name</label>
+                    <label class="label label-info" for="lastName">Last Name</label>
                     <input class="form-control" type="text" name="user[lastName]" value="<%= currentUser.lastName %>">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label class="label label-info" for="email">Email</label>
                     <input class="form-control" type="text" name="user[email]" value="<%= currentUser.email %>">
                 </div>
                 <div class="form-group">
