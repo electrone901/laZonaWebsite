@@ -16,7 +16,10 @@
                 <div class="caption-full">
                     <h4 class="pull-right"><%= apartment.date.toDateString() %></h4>
                     <h4><a><%= apartment.name %></a></h4>
+                    <h4 class="pull-right">$<%= apartment.price %></h4>
+                    <h4><%= apartment.street %> <%= apartment.city %> <%= apartment.state %> <%= apartment.zipcode %></h4>
                     <p><%= apartment.description %></p>
+                    <p><%= apartment.note %></p>
                     <p>
                         <em>Submitted By <%= apartment.author.username %></em>
                     </p>

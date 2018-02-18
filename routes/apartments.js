@@ -17,13 +17,19 @@ router.get("/", function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     let name = req.body.name;
     let image = req.body.image;
+    let price = req.body.price;
+    let street = req.body.street;
+    let city = req.body.city;
+    let state = req.body.state;
+    let zip = req.body.zipcode;
     let des = req.body.description;
+    let note = req.body.note;
     let date = req.body.date;
     let author = {
         id: req.user._id,
         username: req.user.username
     };
-    let newApartment = {name:name, image:image, description:des, date:date, author:author};
+    let newApartment = {name:name, image:image, price: price, street: street, city: city, state: state, zipcode: zip, description:des, note: note, date:date, author:author};
     Apartment.create(newApartment, function(err, newlyCreated){
         if(err){
             req.flash("error", err.message);

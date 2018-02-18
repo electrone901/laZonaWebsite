@@ -17,6 +17,8 @@
                     <img src="<%= apartment.image %>">
                     <div class="caption">
                         <h4><%= apartment.name %></h4>
+                        <h5><%= apartment.city %>, <%= apartment.state %></h5>
+                        <h5>$<%= apartment.price %></h5>
                     </div>
                     <p>
                         <a href="/apartments/<%= apartment._id %>" class="btn btn-primary">More Info</a>
