@@ -39,7 +39,7 @@
                 <% apartment.comments.forEach(function(comment){ %>
                     <div class="row">
                         <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
+                            <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
                             <span class="pull-right">5 days ago</span>
                             <p>
                                 <%= comment.text %>

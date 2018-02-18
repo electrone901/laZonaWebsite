@@ -44,31 +44,6 @@ router.get("/logout", function(req, res){
     
 });
 
-router.get("/profile/:id", function(req, res){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err){
-            req.flash("error", err);
-            res.redirect("back");
-        }
-        else{
-            res.render("profile", {user: foundUser});
-        }
-    });
-});
-
-router.put("/profile/:id", function(req, res){
-    User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updatedUser){
-        if(err){
-            req.flash("error", err);
-            res.redirect("back");
-        }
-        else{
-            req.flash("success", "Changes Saved");
-            res.redirect("/");
-        }
-    });
-});
-
 router.get("*", function(req, res){
    res.render("error"); 
 });

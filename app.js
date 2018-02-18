@@ -16,6 +16,7 @@ const educationRoutes = require("./routes/education");
 const educationCommentsRoutes = require("./routes/educationComments");
 const apartmentRoutes = require("./routes/apartments");
 const apartmentCommentsRoutes = require("./routes/apartmentComments");
+const profileRoutes = require("./routes/profile");
 const indexRoutes = require("./routes/index");
 
 //mongoose.connect("mongodb://localhost/the_zone");
@@ -53,6 +54,7 @@ app.use("/education", educationRoutes);
 app.use("/education/:id/comments", educationCommentsRoutes);
 app.use("/apartments", apartmentRoutes);
 app.use("/apartments/:id/comments", apartmentCommentsRoutes);
+app.use("/profile", profileRoutes);
 app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
