@@ -44,6 +44,16 @@ router.get("/logout", function(req, res){
     
 });
 
+router.get("/donate", function(req, res){
+    res.render("donate");
+});
+
+router.post("/donate", function(req, res){
+    let amount = req.body.amount;
+    req.flash("success", "You donate $" + amount + " Thank You!!!");
+    res.redirect("back");
+});
+
 router.get("*", function(req, res){
    res.render("error"); 
 });

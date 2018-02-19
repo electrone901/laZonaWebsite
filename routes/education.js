@@ -28,7 +28,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             req.flash("error", err.message);
         }
         else{
-            req.flash("success", "Success");
+            req.flash("donate", "Post Created");
             res.redirect("/education");
         }
     });

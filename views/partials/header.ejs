@@ -16,6 +16,7 @@
                     <li><a class="navbar-brand" href="/jobs">Jobs</a></li>
                     <l1><a class="navbar-brand" href="/education">Education</a></l1>
                     <l1><a class="navbar-brand" href="/apartments">Apartments</a></l1>
+                    <l1><a class="navbar-brand" href="/donate">Donate</a></l1>
                 </ul>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -39,6 +40,14 @@
             <% if(success && success.length > 0){ %>
                 <div class="alert alert-success" role="alert">
                     <%= success %>
+                </div>
+            <% } %>
+            <% if(donate && donate.length > 0){ %>
+                <div class="alert alert-success" role="alert">
+                    <p>
+                        <%= donate %>, Would you like to donate? Your donation will help us improve this website.
+                        <a href="/donate">Donate Now</a>
+                    </p>
                 </div>
             <% } %>
         </div>
