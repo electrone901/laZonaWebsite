@@ -12,7 +12,7 @@
                     <input class="form-control" type="text" name="image" placeholder="image url">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="price" placeholder="price">
+                    <input class="form-control" type="number" name="price" placeholder="price" min="0.01" max="9999999" step="0.01">
                 </div>
                 <div class="form-group">
                     <input class="form-control" type="text" name="street" placeholder="street">
@@ -24,7 +24,7 @@
                     <input class="form-control" type="text" name="state" placeholder="state">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="zipcode" placeholder="zipcode">
+                    <input class="form-control" type="number" name="zipcode" placeholder="zipcode" min="10000" max="99999">
                 </div>
                 <div class="form-group">
                     <textarea class="form-control" name="description" placeholder="description" rows="5"></textarea>
