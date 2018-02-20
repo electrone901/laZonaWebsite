@@ -9,7 +9,7 @@ router.get("/", function(req, res){
             req.flash("error", err.message);
         }
         else{
-            res.render("education/index", {education: alleducation, currentUser: req.user});
+            res.render("education/index", {education: alleducation, currentUser: req.user, page: 'education'});
         }
     });
 });

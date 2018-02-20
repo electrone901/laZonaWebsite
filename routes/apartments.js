@@ -9,7 +9,7 @@ router.get("/", function(req, res){
             req.flash("error", err.message);
         }
         else{
-            res.render("apartments/index", {apartments: allapartments, currentUser: req.user});
+            res.render("apartments/index", {apartments: allapartments, currentUser: req.user, page: 'apartments'});
         }
     });
 });

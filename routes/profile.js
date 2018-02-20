@@ -20,7 +20,7 @@ router.get("/:id/edit", function(req, res){
             res.redirect("back");
         }
         else{
-            res.render("profile/edit", {user: foundUser});
+            res.render("profile/edit", {user: foundUser, page: 'profile'});
         }
     });
 });

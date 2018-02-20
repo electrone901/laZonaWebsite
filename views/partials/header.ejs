@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Zone</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
         <nav class="navbar navbar-default">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                     <a class="navbar-brand" href="/">The Zone</a>
-                    
                 </div>
-                <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="/jobs">Jobs</a></li>
-                    <l1><a class="navbar-brand" href="/education">Education</a></l1>
-                    <l1><a class="navbar-brand" href="/apartments">Apartments</a></l1>
-                    <l1><a class="navbar-brand" href="/donate">Donate</a></l1>
-                </ul>
-                <div class="collapse navbar-collapse">
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="<%= typeof page !== 'undefined' && page === 'jobs' ? 'active' : '' %>"><a href="/jobs">Job</a></li>
+                        <li class="<%= typeof page !== 'undefined' && page === 'education' ? 'active' : '' %>"><a href="/education">Education</a></li>
+                        <li class="<%= typeof page !== 'undefined' && page === 'apartments' ? 'active' : '' %>"><a href="/apartments">Apartment</a></li>
+                        <li class="<%= typeof page !== 'undefined' && page === 'donate' ? 'active' : '' %>"><a href="/donate">Donate</a></li>
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <% if (!currentUser){ %>
-                            <li><a href="/login">Login</a></li>
-                            <li><a href="/register\">Sign Up</a></li>
-                        <% }else { %>
-                            <li><a href="/profile/<%= currentUser.id%>/edit">Signed in as <%= currentUser.username %></a></li>
+                        <% if(!currentUser){ %>
+                            <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
+                            <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+                        <% } else { %>
+                            <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>"><a href="/profile/<%= currentUser.id%>/edit">Signed In As <%= currentUser.username %></a></li>
                             <li><a href="/logout">Logout</a></li>
                         <% } %>
                     </ul>
@@ -51,4 +57,4 @@
                 </div>
             <% } %>
         </div>
-       
+        <div class="container">

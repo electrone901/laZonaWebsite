@@ -10,7 +10,7 @@ router.get("/", function(req, res){
             req.flash("error", err.message);
         }
         else{
-            res.render("jobs/index", {jobs: alljob, currentUser: req.user});
+            res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs'});
         }
     });
 });
