@@ -4,7 +4,7 @@ const Education = require("../models/education");
 const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
-    Education.find({}, function(err, alleducation){
+    Education.find({}).sort('-date').exec(function(err, alleducation){
         if(err){
             req.flash("error", err.message);
         }

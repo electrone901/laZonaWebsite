@@ -4,7 +4,7 @@ const Apartment = require("../models/apartment");
 const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
-    Apartment.find({}, function(err, allapartments){
+    Apartment.find({}).sort('-date').exec(function(err, allapartments){
         if(err){
             req.flash("error", err.message);
         }

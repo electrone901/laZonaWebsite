@@ -5,7 +5,7 @@ const middleware = require("../middleware/index.js");
 
 // INDEX - show all job
 router.get("/", function(req, res){
-    Job.find({}, function(err, alljob){
+    Job.find({}).sort('-date').exec(function(err, alljob){
         if(err){
             req.flash("error", err.message);
         }
