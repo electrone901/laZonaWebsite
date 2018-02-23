@@ -18,7 +18,11 @@
                 </div>
                 <div class="form-group">
                     <label class="label label-info" for="email">Email</label>
-                    <input class="form-control" type="text" name="user[email]" value="<%= currentUser.email %>">
+                    <input class="form-control" type="email" name="user[email]" value="<%= currentUser.email %>">
+                </div>
+                <div class="form-group">
+                    <label class="label label-info" for="avatar">Avatar URL</label>
+                    <input class="form-control" type="text" name="user[avatar]" value="<%= currentUser.avatar %>">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Save</button>

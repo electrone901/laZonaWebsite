@@ -6,7 +6,8 @@ const UserSchema = new mongoose.Schema({
     password: String,
     firstName: String,
     lastName: String,
-    email: String
+    email: String,
+    avatar: String
 });
 
 UserSchema.plugin(passportLocalMongooese);
