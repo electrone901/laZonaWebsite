@@ -1,6 +1,37 @@
-<% include ./partials/header %>
+<% include partials/header %>
 
     <h1>Welcome to The Zone</h1>
-    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e23e6404f851a9c272479500cfac3dd5&auto=format&fit=crop&w=350&q=80">
-
-<% include ./partials/footer %>
+    <div class="row text-center flex">
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <a href="/jobs">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e23e6404f851a9c272479500cfac3dd5&auto=format&fit=crop&w=400&q=80">
+                </a>
+                <div class="caption">
+                    <h4>Job</h4>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <a href="/education">
+                    <img src="https://images.unsplash.com/photo-1510531704581-5b2870972060?ixlib=rb-0.3.5&s=90c8084ca651f7738a2009169febe2d8&auto=format&fit=crop&w=400&q=80">
+                </a>
+                <div class="caption">
+                    <h4>Education</h4>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+                <a href="/apartments">
+                    <img src="https://images.unsplash.com/photo-1493150134366-cacb0bdc03fe?ixlib=rb-0.3.5&s=b035d6e3c7d8381c2e9f9bf473b8cb41&auto=format&fit=crop&w=400&q=80">
+                </a>
+                <div class="caption">
+                    <h4>Apartment</h4>
+                </div>
+            </div> 
+        </div>
+    </div>
+    
+<% include partials/footer %>

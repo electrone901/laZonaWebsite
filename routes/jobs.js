@@ -3,7 +3,6 @@ const router = express.Router();
 const Job = require("../models/job");
 const middleware = require("../middleware/index.js");
 
-// INDEX - show all job
 router.get("/", function(req, res){
     Job.find({}).sort('-date').exec(function(err, alljob){
         if(err){
@@ -15,7 +14,6 @@ router.get("/", function(req, res){
     });
 });
 
-// CREATE - add new job to DB
 router.post("/", middleware.isLoggedIn, function(req, res){
     let title = req.body.title;
     let des = req.body.description;
@@ -36,12 +34,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// NEW - show form to create new campground
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("jobs/new");
 });
 
-// SHOW - shows more info about that job
 router.get("/:id", function(req, res){
     Job.findById(req.params.id).populate("comments").exec(function(err, foundJob){
         if(err){
@@ -53,14 +49,12 @@ router.get("/:id", function(req, res){
     });
 });
 
-// EDIT JOB ROUTE
 router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
     Job.findById(req.params.id, function(err, foundJob){
         res.render("jobs/edit", {job: foundJob});
     });
 });
 
-// UPDATE JOB ROUTE
 router.put("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
         if(err){
@@ -75,7 +69,6 @@ router.put("/:id", middleware.checkJobOwnership, function(req, res){
 });
 
 
-// DESTROY CAMPGROUND ROUTE
 router.delete("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndRemove(req.params.id, function(err){
         if(err){

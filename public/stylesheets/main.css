@@ -19,6 +19,11 @@
     margin: 25px auto;
 }
 
+.flex {
+    display:flex; 
+    flex-wrap:wrap;
+}
+
 #delete-form{
     display: inline;
 }

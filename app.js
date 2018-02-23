@@ -1,4 +1,3 @@
-// Import
 const express = require("express");
 const app =express();
 const bodyParser = require("body-parser");
@@ -9,7 +8,6 @@ const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 const User = require("./models/user");
 
-// Requiring Routes
 const jobRoutes = require("./routes/jobs");
 const jobcommentRoutes = require("./routes/jobComments");
 const educationRoutes = require("./routes/education");
@@ -27,14 +25,12 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// PASSPORT CONFIGURATION
 app.use(require("express-session")({
     secret: "Cool Zone",
     resave: false,
     saveUninitialized: false
 }));
 
-// For passport
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
