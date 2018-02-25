@@ -4,14 +4,31 @@ const Job = require("../models/job");
 const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
-    Job.find({}).sort('-date').exec(function(err, alljob){
-        if(err){
-            req.flash("error", err.message);
-        }
-        else{
-            res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs'});
-        }
-    });
+    let noMatch = null;
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Job.find({title: regex}).sort('-date').exec(function(err, allJobs){
+            if(err){
+                req.flash("error", err.message);
+            } 
+            else {
+                if(allJobs.length < 1){
+                    noMatch = "No jobs found";
+                }
+                res.render("jobs/index",{jobs: allJobs, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+           }
+        });
+    }
+    else{
+        Job.find({}).sort('-date').exec(function(err, alljob){
+            if(err){
+                req.flash("error", err.message);
+            }
+            else{
+                res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+            }
+        });
+    }
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -81,5 +98,9 @@ router.delete("/:id", middleware.checkJobOwnership, function(req, res){
         }
     });
 });
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;
