@@ -17,8 +17,7 @@ const apartmentCommentsRoutes = require("./routes/apartmentComments");
 const profileRoutes = require("./routes/profile");
 const indexRoutes = require("./routes/index");
 
-//mongoose.connect("mongodb://localhost/the_zone");
-mongoose.connect("mongodb://song:12345@ds117888.mlab.com:17888/zone123");
+mongoose.connect(process.env.DATABASEURL);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
