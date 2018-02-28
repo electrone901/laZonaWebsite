@@ -2,6 +2,25 @@ const express = require("express");
 const router = express.Router();
 const Apartment = require("../models/apartment");
 const middleware = require("../middleware/index.js");
+const multer = require('multer');
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = function (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+const cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'xytank', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 router.get("/", function(req, res){
     let noMatch = null;
@@ -31,30 +50,20 @@ router.get("/", function(req, res){
     }
 });
 
-router.post("/", middleware.isLoggedIn, function(req, res){
-    let name = req.body.name;
-    let image = req.body.image;
-    let price = req.body.price;
-    let street = req.body.street;
-    let city = req.body.city;
-    let state = req.body.state;
-    let zip = req.body.zipcode;
-    let des = req.body.description;
-    let note = req.body.note;
-    let date = req.body.date;
-    let author = {
-        id: req.user._id,
-        username: req.user.username
-    };
-    let newApartment = {name:name, image:image, price: price, street: street, city: city, state: state, zipcode: zip, description:des, note: note, date:date, author:author};
-    Apartment.create(newApartment, function(err, newlyCreated){
-        if(err){
-            req.flash("error", err.message);
+router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        req.body.apartment.image = result.secure_url;
+        req.body.apartment.author = {
+            id: req.user._id,
+            username: req.user.username
+        };
+    Apartment.create(req.body.apartment, function(err, apartment) {
+        if (err) {
+            req.flash('error', err.message);
+            return res.redirect('back');
         }
-        else{
-            req.flash("donate", "Post Created");
-            res.redirect("/apartments");
-        }
+        res.redirect('/apartments/' + apartment.id);
+        });
     });
 });
 
