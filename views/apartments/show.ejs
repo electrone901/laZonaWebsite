@@ -36,7 +36,7 @@
                     <span class="label label-info">Note</span>
                     <p><%= apartment.note %></p>
                     <p>
-                        <em>Submitted By <%= apartment.author.username %></em>
+                        <em>Submitted By <a href="/profile/<%= apartment.author.id %>"><strong><%= apartment.author.username %></strong></a></em>
                     </p>
                 </div>
             </div>

@@ -16,7 +16,7 @@
                     <h4><a><%= education.title %></a></h4>
                     <p><%= education.description %></p>
                     <p>
-                        <em>Submitted By <%= education.author.username %></em>
+                        <em>Submitted By <a href="/profile/<%= education.author.id %>"><strong><%= education.author.username %></strong></a></em>
                     </p>
                     <% if(currentUser && education.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-warning" href="/education/<%= education._id %>/edit">Edit</a>

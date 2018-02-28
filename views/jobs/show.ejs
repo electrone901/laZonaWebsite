@@ -16,7 +16,7 @@
                     <h4><a><%= job.title %></a></h4>
                     <p><%= job.description %></p>
                     <p>
-                        <em>Submitted By <%= job.author.username %></em>
+                        <em>Submitted By <a href="/profile/<%= job.author.id %>"><strong><%= job.author.username %></strong></a></em>
                     </p>
                     <% if(currentUser && job.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-warning" href="/jobs/<%= job._id %>/edit">
