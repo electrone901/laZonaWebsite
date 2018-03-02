@@ -1,58 +1,47 @@
 <% include ../partials/header %>
 
-    <div class="row">
-        <div class="col-md-3">
-            <p class="lead">Education</p>
-            <div class="list-group">
-                <li class="list-group-item">Info 1</li>
-                <li class="list-group-item">Info 2</li>
-                <li class="list-group-item">Info 3</li>
-            </div>
+    <p class="lead">Education</p>
+    <div class="thumbnail">
+        <div class="caption-full">
+            <h4 class="pull-right"><%= education.date.toDateString() %></h4>
+            <h4><a><%= education.title %></a></h4>
+            <p><%= education.description %></p>
+            <p>
+                <em>Submitted By <a href="/profile/<%= education.author.id %>"><strong><%= education.author.username %></strong></a></em>
+            </p>
+            <% if(currentUser && education.author.id.equals(currentUser._id)){ %>
+                <a class="btn btn-warning" href="/education/<%= education._id %>/edit">Edit</a>
+                <form id="delete-form" action="/education/<%= education._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            <% } %>
         </div>
-        <div class="col-md-9">
-            <div class="thumbnail">
-                <div class="caption-full">
-                    <h4 class="pull-right"><%= education.date.toDateString() %></h4>
-                    <h4><a><%= education.title %></a></h4>
-                    <p><%= education.description %></p>
+    </div>
+    <div class="well">
+        <div class="text-right">
+            <a class="btn btn-success" href="/education/<%= education._id %>/comments/new">Add New Comment</a>
+        </div>
+        <hr>
+        <% education.comments.forEach(function(comment){ %>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
+                    <span class="pull-right"><%= comment.date.toDateString() %></span>
                     <p>
-                        <em>Submitted By <a href="/profile/<%= education.author.id %>"><strong><%= education.author.username %></strong></a></em>
+                        <%= comment.text %>
                     </p>
-                    <% if(currentUser && education.author.id.equals(currentUser._id)){ %>
-                        <a class="btn btn-warning" href="/education/<%= education._id %>/edit">Edit</a>
-                        <form id="delete-form" action="/education/<%= education._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete</button>
+                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" 
+                            href="/education/<%= education._id %>/comments/<%= comment._id %>/edit">
+                            Edit
+                        </a>
+                        <form id="delete-form" action="/education/<%= education._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                         </form>
                     <% } %>
                 </div>
             </div>
-            <div class="well">
-                <div class="text-right">
-                    <a class="btn btn-success" href="/education/<%= education._id %>/comments/new">Add New Comment</a>
-                </div>
-                <hr>
-                <% education.comments.forEach(function(comment){ %>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
-                            <span class="pull-right"><%= comment.date.toDateString() %></span>
-                            <p>
-                                <%= comment.text %>
-                            </p>
-                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                                <a class="btn btn-xs btn-warning" 
-                                    href="/education/<%= education._id %>/comments/<%= comment._id %>/edit">
-                                    Edit
-                                </a>
-                                <form id="delete-form" action="/education/<%= education._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="Delete">
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>
-                <% }) %>
-            </div>
-        </div>
+        <% }) %>
     </div>
 
 <% include ../partials/footer %>
