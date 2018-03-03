@@ -9,7 +9,7 @@
                     <input class="form-control" type="text" name="apartment[name]" placeholder="name">
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="label label-info" for="price">Price</label>
                             <div class="input-group">
@@ -18,6 +18,8 @@
                                 <div class="input-group-addon">.00</div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label class="label label-info" for="image">Image</label>
                             <input type="file" id="image" name="image" accept="image/*" required>
@@ -32,13 +34,19 @@
                     <label class="label label-info" for="city">City</label>
                     <input class="form-control" type="text" name="apartment[city]" placeholder="city">
                 </div>
-                <div class="form-group">
-                    <label class="label label-info" for="state">State</label>
-                    <input class="form-control" type="text" name="apartment[state]" placeholder="state">
-                </div>
-                <div class="form-group">
-                    <label class="label label-info" for="zipcode">Zipcode</label>
-                    <input class="form-control" type="number" name="apartment[zipcode]" placeholder="zipcode" min="10000" max="99999">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label label-info" for="state">State</label>
+                            <input class="form-control" type="text" name="apartment[state]" placeholder="state">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="label label-info" for="zipcode">Zipcode</label>
+                            <input class="form-control" type="number" name="apartment[zipcode]" placeholder="zipcode" min="10000" max="99999">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="label label-info" for="description">Description</label>
