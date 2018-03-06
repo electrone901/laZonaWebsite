@@ -12,7 +12,10 @@ router.get("/register", function(req, res){
 });
 
 router.post("/register", function(req, res){
-    let newUser = new User({username: req.body.username});
+    let newUser = new User({
+        username: req.body.username,
+        email: req.body.email
+    });
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             return res.render("register", {error: err.message});
@@ -51,6 +54,10 @@ router.post("/donate", function(req, res){
     let amount = req.body.amount;
     req.flash("success", "You donate $" + amount + " Thank You!!!");
     res.redirect("back");
+});
+
+router.get('/forgot', function(req, res) {
+  res.render('forgot');
 });
 
 router.get("*", function(req, res){
