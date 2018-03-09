@@ -25,8 +25,9 @@
         <% education.forEach(function(subject){ %>
             <div class="col-md-12 col-sm-6">
                 <div class="thumbnail">
-                    <a href="/education/<%= subject._id %>"><p><%= subject.title %> - <%= subject.description %></p></a>
-                    <span><%= subject.date.toDateString() %> by <%= subject.author.username %></span>
+                    <a href="/education/<%= subject._id %>"><p><%= subject.title %></p></a>
+                    <p><%- subject.description.substring(0, 100) %>...</p>
+                    <span><%= subject.date.toDateString() %> by <a href="/profile/<%= subject.author.id %>"><%= subject.author.username %></span></a>
                 </div>
             </div>
         <% }); %>

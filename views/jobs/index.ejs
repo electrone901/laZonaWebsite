@@ -9,7 +9,7 @@
             <form action="/jobs" method="GET" class="form-inline">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <input type="text" name="search" placeholder="Job Search..." class="form-control">
+                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
                     <input type="submit" value="Search" class="btn btn-default">
                 </div>
             </form>
@@ -25,8 +25,9 @@
         <% jobs.forEach(function(job){ %>
             <div class="col-md-12 col-sm-6">
                 <div class="thumbnail">
-                    <a href="/jobs/<%= job._id %>"><p><%= job.title %> - <%= job.description %></p></a>
-                    <span><%= job.date.toDateString() %> by <%= job.author.username %></span>
+                    <a href="/jobs/<%= job._id %>"><p><%= job.title %></p></a>
+                    <p><%- job.description.substring(0, 100) %>...</p>
+                    <span><%= job.date.toDateString() %> by <a href="/profile/<%= job.author.id %>"><%= job.author.username %></span></a>
                 </div>
             </div>
         <% }); %>
