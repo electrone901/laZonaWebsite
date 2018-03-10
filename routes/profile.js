@@ -33,7 +33,7 @@ router.put("/:id", function(req, res){
         }
         else{
             req.flash("success", "Changes Saved");
-            res.redirect("back");
+            res.redirect('/profile/' + req.params.id);
         }
     });
 });
