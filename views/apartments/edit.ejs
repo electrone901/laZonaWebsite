@@ -3,7 +3,7 @@
     <div class="row">
         <h1 class="center">Edit <%= apartment.name %></h1>
         <div class="form">
-            <form action="/apartments/<%= apartment._id %>?_method=PUT" method="POST">
+            <form action="/apartments/<%= apartment._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="label label-info" for="name">Name</label>
                     <input class="form-control" type="text" name="apartment[name]" value="<%= apartment.name %>">
@@ -17,8 +17,8 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="image">Image</label>
-                            <input class="form-control" type="text" name="apartment[image]" value="<%= apartment.image %>">
+                            <label for="image">Image</label>
+                            <input type="file" id="image" name="image" accept="image/*">
                         </div>
                     </div>
                 </div>

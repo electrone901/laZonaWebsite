@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 let apartmentSchema = new mongoose.Schema({
     name: String,
     image: String,
+    image_id: String,
     price: String,
     street: String,
     city: String,

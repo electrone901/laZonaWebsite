@@ -53,6 +53,7 @@ router.get("/", function(req, res){
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
     cloudinary.uploader.upload(req.file.path, function(result) {
         req.body.apartment.image = result.secure_url;
+        req.body.apartment.image_id = result.public_id;
         req.body.apartment.author = {
             id: req.user._id,
             username: req.user.username
@@ -62,6 +63,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             req.flash('error', err.message);
             return res.redirect('back');
         }
+        req.flash("donate", "Post Created");
         res.redirect('/apartments/' + apartment.id);
         });
     });
@@ -88,29 +90,65 @@ router.get("/:id/edit", middleware.checkApartmentOwnership, function(req, res){
     });
 });
 
-router.put("/:id", middleware.checkApartmentOwnership, function(req, res){
-    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err, updatedApartment){
-        if(err){
-            req.flash("error", err.message);
-            res.redirect("/apartments");
-        }
-        else{
-            req.flash("success", "Edit Success");
-            res.redirect("/apartments/" + req.params.id);
-        }
-    });
+router.put("/:id", middleware.checkApartmentOwnership, upload.single('image'), function(req, res){
+    if (req.file) {
+        Apartment.findById(req.params.id, function(err, apartment) {
+            if(err) {
+                req.flash('error', err.message);
+                return res.redirect('back');
+            }
+            cloudinary.v2.uploader.destroy(apartment.image_id, function(err, result){
+                if(err) {
+                    req.flash('error', err.message);
+                    return res.redirect('back');
+                }
+                cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+                    if(err) {
+                        req.flash('error', err.message);
+                        return res.redirect('back');
+                    }
+                    req.body.apartment.image = result.secure_url;
+                    req.body.apartment.image_id = result.public_id;
+
+                    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
+                        if(err) {
+                            req.flash('error', err.message);
+                            return res.redirect('back');
+                        }
+                        req.flash('success','Successfully Updated!');
+                        res.redirect('/apartments/' + apartment._id);
+                    });
+                });
+            });
+        });
+    } 
+    else {
+        Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
+            if(err) {
+                req.flash('error', err.message);
+                return res.redirect('back');
+            }
+            req.flash('success','Successfully Updated!');
+            res.redirect('/apartments/' + req.params.id);
+        });
+    }
 });
 
 router.delete("/:id", middleware.checkApartmentOwnership, function(req, res){
-    Apartment.findByIdAndRemove(req.params.id, function(err){
+    Apartment.findById(req.params.id, function(err, apartment){
         if(err){
             req.flash("error", err.message);
-            res.redirect("/apartments");
+            return res.redirect("/campgrounds");
         }
-        else{
-            req.flash("success", "Removed Success");
+        cloudinary.v2.uploader.destroy(apartment.image_id, function(err, result){
+            if(err) {
+                req.flash('error', err.message);
+                return res.redirect('back');
+            }
+            apartment.remove();
+            req.flash('success', 'Apartment removed successfully');
             res.redirect("/apartments");
-        }
+        });
     });
 });
 
