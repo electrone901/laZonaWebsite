@@ -6,6 +6,7 @@
     width: 100%;
 }
 
+
 .thumbnail {
     padding: 0px;
 }
@@ -30,4 +31,25 @@
 
 #delete-form{
     display: inline;
+}
+
+@media (max-width: 767px) {
+    .col-md-3, .col-sm-6{
+        width: 60%;
+        margin: 0 auto;
+    }
+    
+    .form {
+        width: 70%;
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-3, .col-sm-6{
+        width: 100%;
+    }
+    
+    .form {
+        width: 80%;
+    }
 }
