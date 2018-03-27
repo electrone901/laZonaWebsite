@@ -27,7 +27,7 @@
                 <div class="thumbnail">
                     <a href="/jobs/<%= job._id %>"><p><%= job.title %></p></a>
                     <p><%- job.description.substring(0, 100) %>...</p>
-                    <span><%= job.date.toDateString() %> by <a href="/profile/<%= job.author.id %>"><%= job.author.username %></span></a>
+                    <span><%= moment(job.createdAt).fromNow() %> by <a href="/profile/<%= job.author.id %>"><%= job.author.username %></span></a>
                 </div>
             </div>
         <% }); %>
