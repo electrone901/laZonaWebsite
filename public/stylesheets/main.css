@@ -20,7 +20,7 @@
 }
 
 .form {
-    width:40%;
+    width: 40%;
     margin: 25px auto;
 }
 
@@ -28,6 +28,25 @@
     display:flex; 
     flex-wrap:wrap;
 }
+
+
+.blue{
+    color: blue;
+}
+
+.grey{
+    color: grey;
+}
+
+.leftBorder{
+    border-left: 5px solid #00C851;
+}
+
+.leftBorder2{
+    border-left: 5px solid #ffbb33;
+    margin-top: 15px;
+}
+
 
 #delete-form{
     display: inline;
