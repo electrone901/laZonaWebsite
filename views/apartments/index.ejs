@@ -25,7 +25,9 @@
         <% apartments.forEach(function(apartment){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                    <img src="<%= apartment.image %>">
+                    <a href="/apartments/<%= apartment._id %>">
+                        <img src="<%= apartment.image %>">
+                    </a>
                     <div class="caption">
                         <h4><%= apartment.name %></h4>
                         <h5><%= apartment.city %>, <%= apartment.state %></h5>
