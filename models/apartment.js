@@ -11,7 +11,7 @@ let apartmentSchema = new mongoose.Schema({
     zipcode: String,
     description: String,
     note: String,
-    date: {type: Date, default: Date.now},
+    createdAt: {type: Date, default: Date.now},
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

@@ -7,7 +7,7 @@ router.get("/", function(req, res){
     let noMatch = null;
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Education.find({title: regex}).sort('-date').exec(function(err, allEducation){
+        Education.find({title: regex}).sort('-createdAt').exec(function(err, allEducation){
             if(err){
                 req.flash("error", err.message);
             } 
@@ -20,7 +20,7 @@ router.get("/", function(req, res){
         });
     }
     else{
-        Education.find({}).sort('-date').exec(function(err, alleducation){
+        Education.find({}).sort('-createdAt').exec(function(err, alleducation){
             if(err){
                 req.flash("error", err.message);
             }

@@ -3,11 +3,11 @@
     <p class="lead">Education</p>
     <div class="thumbnail">
         <div class="caption-full">
-            <h4 class="pull-right"><%= education.date.toDateString() %></h4>
+            <h4 class="pull-right"><%= education.createdAt.toDateString() %></h4>
             <h4><a><%= education.title %></a></h4>
             <p><%= education.description %></p>
             <p>
-                <em>Submitted By <a href="/profile/<%= education.author.id %>"><strong><%= education.author.username %></strong></a></em>
+                <em>Submitted By <a href="/profile/<%= education.author.id %>"><strong><%= education.author.username %></strong></a>, <%= moment(education.createdAt).fromNow() %></em>
             </p>
             <% if(currentUser && education.author.id.equals(currentUser._id)){ %>
                 <a class="btn btn-warning" href="/education/<%= education._id %>/edit">Edit</a>
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
-                    <span class="pull-right"><%= comment.date.toDateString() %></span>
+                    <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
                     <p>
                         <%= comment.text %>
                     </p>

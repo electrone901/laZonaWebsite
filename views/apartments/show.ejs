@@ -18,7 +18,7 @@
     <div class="thumbnail">
         <img class="img-responsive" src="<%= apartment.image %>">
         <div class="caption-full">
-            <h4 class="pull-right"><%= apartment.date.toDateString() %></h4>
+            <h4 class="pull-right"><%= apartment.createdAt.toDateString() %></h4>
             <h4><a><%= apartment.name %></a></h4>
             <h4 class="pull-right">$<%= apartment.price %></h4>
             <h4><%= apartment.street %>, <%= apartment.city %>, <%= apartment.state %>, <%= apartment.zipcode %></h4>
@@ -27,7 +27,7 @@
             <span class="label label-info">Note</span>
             <p><%= apartment.note %></p>
             <p>
-                <em>Submitted By <a href="/profile/<%= apartment.author.id %>"><strong><%= apartment.author.username %></strong></a></em>
+                <em>Submitted By <a href="/profile/<%= apartment.author.id %>"><strong><%= apartment.author.username %></strong></a>, <%= moment(apartment.createdAt).fromNow() %></em>
             </p>
         </div>
     </div>
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
-                    <span class="pull-right"><%= comment.date.toDateString() %></span>
+                    <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
                     <p>
                         <%= comment.text %>
                     </p>

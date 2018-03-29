@@ -7,7 +7,7 @@ router.get("/", function(req, res){
     let noMatch = null;
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Job.find({title: regex}).sort('-date').exec(function(err, allJobs){
+        Job.find({title: regex}).sort('-createdAt').exec(function(err, allJobs){
             if(err){
                 req.flash("error", err.message);
             } 
@@ -20,7 +20,7 @@ router.get("/", function(req, res){
         });
     }
     else{
-        Job.find({}).sort('-date').exec(function(err, alljob){
+        Job.find({}).sort('-createdAt').exec(function(err, alljob){
             if(err){
                 req.flash("error", err.message);
             }

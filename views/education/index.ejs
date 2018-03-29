@@ -27,7 +27,7 @@
                 <div class="thumbnail">
                     <a href="/education/<%= subject._id %>"><p><%= subject.title %></p></a>
                     <p><%- subject.description.substring(0, 100) %>...</p>
-                    <span><%= subject.date.toDateString() %> by <a href="/profile/<%= subject.author.id %>"><%= subject.author.username %></span></a>
+                    <span><%= moment(subject.createdAt).fromNow() %> by <a href="/profile/<%= subject.author.id %>"><%= subject.author.username %></span></a>
                 </div>
             </div>
         <% }); %>
