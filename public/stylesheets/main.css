@@ -47,6 +47,15 @@
     margin-top: 15px;
 }
 
+.ridgeBorder{
+    border-style: ridge;
+    border-width: medium;
+    padding: 5px;
+}
+
+.ridgeBorder:hover { 
+    background-color: #d4efee;
+}
 
 #delete-form{
     display: inline;
