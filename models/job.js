@@ -16,7 +16,8 @@ let jobSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comment"
         }
-    ]
+    ],
+    likes: []
 });
 
 module.exports = mongoose.model("Job", jobSchema);
