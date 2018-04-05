@@ -15,7 +15,7 @@ router.get("/", function(req, res){
                 if(allJobs.length < 1){
                     noMatch = "No jobs found";
                 }
-                res.render("jobs/index",{jobs: allJobs, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+               // res.render("jobs/index",{jobs: allJobs, currentUser: req.user, page: 'jobs', noMatch: noMatch});
            }
         });
     }
@@ -25,7 +25,8 @@ router.get("/", function(req, res){
                 req.flash("error", err.message);
             }
             else{
-                res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+                //res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+                res.json({jobs: alljob, currentUser: req.user, noMatch: noMatch});
             }
         });
     }
@@ -52,7 +53,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
-    res.render("jobs/new");
+    //res.render("jobs/new");
 });
 
 router.get("/:id", function(req, res){
@@ -61,26 +62,28 @@ router.get("/:id", function(req, res){
             req.flash("error", err.message);
         }
         else{
-            res.render("jobs/show", {job: foundJob});
+          //res.render("jobs/show", {job: foundJob});
+           res.json({job: foundJob});
         }
     });
 });
 
+
 router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
     Job.findById(req.params.id, function(err, foundJob){
-        res.render("jobs/edit", {job: foundJob});
+       // res.render("jobs/edit", {job: foundJob});
     });
 });
 
 router.put("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
         if(err){
-            req.flash("error", err.message);
-            res.redirect("/jobs");
+         //   req.flash("error", err.message);
+          //  res.redirect("/jobs");
         }
         else{
-            req.flash("success", "Edit Success");
-            res.redirect("/jobs/" + req.params.id);
+          //  req.flash("success", "Edit Success");
+           // res.redirect("/jobs/" + req.params.id);
         }
     });
 });
@@ -89,12 +92,12 @@ router.put("/:id", middleware.checkJobOwnership, function(req, res){
 router.delete("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndRemove(req.params.id, function(err){
         if(err){
-            req.flash("error", err.message);
-            res.redirect("/jobs");
+         //   req.flash("error", err.message);
+           // res.redirect("/jobs");
         }
         else{
-            req.flash("success", "Removed Success");
-            res.redirect("/jobs");
+           // req.flash("success", "Removed Success");
+        //    res.redirect("/jobs");
         }
     });
 });

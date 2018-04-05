@@ -8,14 +8,7 @@ const LocalStrategy = require("passport-local");
 const methodOverride = require("method-override");
 const User = require("./models/user");
 
-const jobRoutes = require("./routes/jobs");
-const jobcommentRoutes = require("./routes/jobComments");
-const educationRoutes = require("./routes/education");
-const educationCommentsRoutes = require("./routes/educationComments");
-const apartmentRoutes = require("./routes/apartments");
-const apartmentCommentsRoutes = require("./routes/apartmentComments");
-const profileRoutes = require("./routes/profile");
-const indexRoutes = require("./routes/index");
+
 //const api = require("./routes/api");
 const jobRoutesAPI = require("./routes/api/jobs");
 const jobcommentRoutesAPI = require("./routes/api/jobComments");
@@ -25,8 +18,7 @@ const apartmentRoutesAPI = require("./routes/api/apartments");
 const apartmentCommentsRoutesAPI = require("./routes/api/apartmentComments");
 const profileRoutesAPI = require("./routes/api/profile");
 
-//mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
-mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -53,26 +45,17 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use("/jobs", jobRoutes);
-app.use("/jobs/:id/comments", jobcommentRoutes);
-app.use("/education", educationRoutes);
-app.use("/education/:id/comments", educationCommentsRoutes);
-app.use("/apartments", apartmentRoutes);
-app.use("/apartments/:id/comments", apartmentCommentsRoutes);
-app.use("/profile", profileRoutes);
-
-app.use("/api/v1/jobs", jobRoutesAPI);
-app.use("/api/v1/jobs/:id/comments", jobcommentRoutesAPI);
-app.use("/api/v1/education", educationRoutesAPI);
-app.use("/api/v1/education/:id/comments", educationCommentsRoutesAPI);
-app.use("/api/v1/apartments", apartmentRoutesAPI);
-app.use("/api/v1/apartments/:id/comments", apartmentCommentsRoutesAPI);
-app.use("/api/v1/profile", profileRoutesAPI);
-
-app.use(indexRoutes);
-//app.use('/v1', router);
+app.use("/jobs", jobRoutesAPI);
+app.use("/jobs/:id/comments", jobcommentRoutesAPI);
+app.use("/education", educationRoutesAPI);
+app.use("/education/:id/comments", educationCommentsRoutesAPI);
+app.use("/apartments", apartmentRoutesAPI);
+app.use("/apartments/:id/comments", apartmentCommentsRoutesAPI);
+app.use("/profile", profileRoutesAPI);
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("Zone server has started");
+
+
+app.listen(8081, process.env.IP, function(){
+    console.log("Zone api server has started");
 });
