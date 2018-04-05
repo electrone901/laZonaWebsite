@@ -26,7 +26,7 @@ router.get("/", function(req, res){
     let noMatch = null;
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Apartment.find({name: regex}).sort('-date').exec(function(err, allApartments){
+        Apartment.find({name: regex}).sort('-createdAt').exec(function(err, allApartments){
             if(err){
                 req.flash("error", err.message);
             } 
@@ -39,7 +39,7 @@ router.get("/", function(req, res){
         });
     }
     else{
-        Apartment.find({}).sort('-date').exec(function(err, allapartments){
+        Apartment.find({}).sort('-createdAt').exec(function(err, allapartments){
             if(err){
                 req.flash("error", err.message);
             }

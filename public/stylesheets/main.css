@@ -20,13 +20,41 @@
 }
 
 .form {
-    width:40%;
+    width: 40%;
     margin: 25px auto;
 }
 
 .flex {
     display:flex; 
     flex-wrap:wrap;
+}
+
+
+.blue{
+    color: blue;
+}
+
+.grey{
+    color: grey;
+}
+
+.leftBorder{
+    border-left: 5px solid #00C851;
+}
+
+.leftBorder2{
+    border-left: 5px solid #ffbb33;
+    margin-top: 15px;
+}
+
+.ridgeBorder{
+    border-style: ridge;
+    border-width: medium;
+    padding: 5px;
+}
+
+.ridgeBorder:hover { 
+    background-color: #d4efee;
 }
 
 #delete-form{
