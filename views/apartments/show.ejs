@@ -71,7 +71,7 @@
                     <% } else { %>
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <% } %>
-                    <%= comment.author.username %>
+                    <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
                 </strong>
                 
                 <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>

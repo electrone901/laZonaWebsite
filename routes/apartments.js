@@ -86,6 +86,10 @@ router.get("/:id", function(req, res){
 
 router.get("/:id/edit", middleware.checkApartmentOwnership, function(req, res){
     Apartment.findById(req.params.id, function(err, foundApartment){
+        if(err) {
+            req.flash('error', err.message);
+            return res.redirect('back');
+        }
         res.render("apartments/edit", {apartment: foundApartment});
     });
 });

@@ -68,7 +68,13 @@ router.get("/:id", function(req, res){
 
 router.get("/:id/edit", middleware.checkEducationOwnership, function(req, res){
     Education.findById(req.params.id, function(err, foundEducation){
-        res.render("education/edit", {education: foundEducation});
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
+        }
+        else{
+            res.render("education/edit", {education: foundEducation});
+        }
     });
 });
 

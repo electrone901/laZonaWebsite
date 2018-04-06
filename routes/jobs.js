@@ -26,7 +26,6 @@ router.get("/", function(req, res){
             }
             else{
                 res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs', noMatch: noMatch});
-                //res.json({jobs: alljob, currentUser: req.user, noMatch: noMatch});
             }
         });
     }
@@ -63,17 +62,22 @@ router.get("/:id", function(req, res){
         }
         else{
           res.render("jobs/show", {job: foundJob});
-          //res.json({job: foundJob});
         }
     });
 });
 
-
 router.get("/:id/edit", middleware.checkJobOwnership, function(req, res){
     Job.findById(req.params.id, function(err, foundJob){
-       res.render("jobs/edit", {job: foundJob});
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("back");
+        }
+        else{
+            res.render("jobs/edit", {job: foundJob});
+        }
     });
 });
+
 
 router.put("/:id", middleware.checkJobOwnership, function(req, res){
     Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
