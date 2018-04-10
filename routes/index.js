@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
+const middleware = require("../middleware/index.js");
 const async = require("async");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
@@ -30,7 +31,7 @@ router.post("/register", function(req, res){
     });
 });
 
-router.get("/login", function(req, res){
+router.get("/login", middleware.alreadyLoggedIn, function(req, res){
     res.render("login", {page: 'login'}); 
 });
 
