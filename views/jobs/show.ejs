@@ -21,6 +21,15 @@
                     </button>
                 </form>
             <% } %>
+            <hr>
+            <form action="/jobs/<%= job._id %>/ratings" method="POST">
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary">
+                        (<%= job.ratings.length %>)
+                        Likes
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
     <div class="well">

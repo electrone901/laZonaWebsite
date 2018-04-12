@@ -10,6 +10,7 @@ const User = require("./models/user");
 
 const jobRoutes = require("./routes/jobs");
 const jobcommentRoutes = require("./routes/jobComments");
+const ratingRoutes = require("./routes/ratings");
 const educationRoutes = require("./routes/education");
 const educationCommentsRoutes = require("./routes/educationComments");
 const apartmentRoutes = require("./routes/apartments");
@@ -56,6 +57,7 @@ app.use(function(req, res, next){
 
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/comments", jobcommentRoutes);
+app.use("/jobs/:id/ratings", ratingRoutes);
 app.use("/education", educationRoutes);
 app.use("/education/:id/comments", educationCommentsRoutes);
 app.use("/apartments", apartmentRoutes);
