@@ -57,12 +57,12 @@ app.use(function(req, res, next){
 
 app.use("/jobs", jobRoutes);
 app.use("/jobs/:id/comments", jobcommentRoutes);
-app.use("/jobs/:id/ratings", ratingRoutes);
 app.use("/education", educationRoutes);
 app.use("/education/:id/comments", educationCommentsRoutes);
 app.use("/apartments", apartmentRoutes);
 app.use("/apartments/:id/comments", apartmentCommentsRoutes);
 app.use("/profile", profileRoutes);
+app.use("/", ratingRoutes);
 
 app.use("/api/v1/jobs", jobRoutesAPI);
 app.use("/api/v1/jobs/:id/comments", jobcommentRoutesAPI);

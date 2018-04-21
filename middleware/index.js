@@ -116,7 +116,7 @@ middlewareObj.alreadyLoggedIn = function(req, res, next){
     return next();
 };
 
-middlewareObj.checkRatingExists = function(req, res, next){
+middlewareObj.checkJobRatingExists = function(req, res, next){
     Job.findById(req.params.id).populate("ratings").exec(function(err, job){
         if(err){
           console.log(err);
@@ -125,6 +125,21 @@ middlewareObj.checkRatingExists = function(req, res, next){
             if(job.ratings[i].author.id.equals(req.user._id)) {
                 req.flash("error", "You already liked this!");
                 return res.redirect('/jobs/' + job._id);
+            }
+        }
+        next();
+    });
+};
+
+middlewareObj.checkEducationRatingExists = function(req, res, next){
+    Education.findById(req.params.id).populate("ratings").exec(function(err, education){
+        if(err){
+          console.log(err);
+        }
+        for(let i = 0; i < education.ratings.length; i++ ) {
+            if(education.ratings[i].author.id.equals(req.user._id)) {
+                req.flash("error", "You already liked this!");
+                return res.redirect('/education/' + education._id);
             }
         }
         next();

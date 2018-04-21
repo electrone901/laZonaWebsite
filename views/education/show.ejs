@@ -15,6 +15,15 @@
                     <button class="btn btn-danger">Delete</button>
                 </form>
             <% } %>
+            <hr>
+            <form action="/education/<%= education._id %>/ratings" method="POST">
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary">
+                        (<%= education.ratings.length %>)
+                        Likes
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
     <div class="well">
