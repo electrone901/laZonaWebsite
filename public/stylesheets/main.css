@@ -57,6 +57,10 @@
     background-color: #d4efee;
 }
 
+.margin-top{
+    margin-top: 12px;
+}
+
 #delete-form{
     display: inline;
 }
