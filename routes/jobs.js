@@ -15,7 +15,7 @@ router.get("/", function(req, res){
                 if(allJobs.length < 1){
                     noMatch = "No jobs found";
                 }
-               res.render("jobs/index",{jobs: allJobs, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+               res.render("jobs/index",{jobs: allJobs, currentUser: req.user, noMatch: noMatch});
            }
         });
     }
@@ -25,7 +25,7 @@ router.get("/", function(req, res){
                 req.flash("error", err.message);
             }
             else{
-                res.render("jobs/index", {jobs: alljob, currentUser: req.user, page: 'jobs', noMatch: noMatch});
+                res.render("jobs/index", {jobs: alljob, currentUser: req.user, noMatch: noMatch});
             }
         });
     }

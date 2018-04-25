@@ -15,7 +15,7 @@ router.get("/", function(req, res){
                 if(allHelps.length < 1){
                     noMatch = "No helps found";
                 }
-               res.render("helps/index",{helps: allHelps, currentUser: req.user, page: 'helps', noMatch: noMatch});
+               res.render("helps/index",{helps: allHelps, currentUser: req.user, noMatch: noMatch});
            }
         });
     }

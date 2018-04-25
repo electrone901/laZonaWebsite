@@ -15,7 +15,7 @@ router.get("/", function(req, res){
                 if(allEducation.length < 1){
                     noMatch = "No subjects found";
                 }
-                res.render("education/index",{education: allEducation, currentUser: req.user, page: 'education', noMatch: noMatch});
+                res.render("education/index",{education: allEducation, currentUser: req.user, noMatch: noMatch});
            }
         });
     }
@@ -25,7 +25,7 @@ router.get("/", function(req, res){
                 req.flash("error", err.message);
             }
             else{
-                res.render("education/index", {education: alleducation, currentUser: req.user, page: 'education', noMatch: noMatch});
+                res.render("education/index", {education: alleducation, currentUser: req.user, noMatch: noMatch});
             }
         });
     }

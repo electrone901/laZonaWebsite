@@ -34,7 +34,7 @@ router.get("/", function(req, res){
                 if(allApartments.length < 1){
                     noMatch = "No apartments found";
                 }
-                res.render("apartments/index",{apartments: allApartments, currentUser: req.user, page: 'apartments', noMatch: noMatch});
+                res.render("apartments/index",{apartments: allApartments, currentUser: req.user, noMatch: noMatch});
            }
         });
     }
@@ -44,7 +44,7 @@ router.get("/", function(req, res){
                 req.flash("error", err.message);
             }
             else{
-                res.render("apartments/index", {apartments: allapartments, currentUser: req.user, page: 'apartments', noMatch: noMatch});
+                res.render("apartments/index", {apartments: allapartments, currentUser: req.user, noMatch: noMatch});
             }
         });
     }
