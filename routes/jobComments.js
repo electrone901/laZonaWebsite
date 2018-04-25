@@ -4,7 +4,6 @@ const Job = require("../models/job");
 const Comment = require("../models/comment");
 const middleware = require("../middleware/index.js");
 
-
 router.get("/new", middleware.isLoggedIn, function(req, res){
     Job.findById(req.params.id, function(err, job){
         if(err){
