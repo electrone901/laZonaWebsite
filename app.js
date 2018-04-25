@@ -10,13 +10,16 @@ const User = require("./models/user");
 
 const jobRoutes = require("./routes/jobs");
 const jobcommentRoutes = require("./routes/jobComments");
-const ratingRoutes = require("./routes/ratings");
 const educationRoutes = require("./routes/education");
 const educationCommentsRoutes = require("./routes/educationComments");
 const apartmentRoutes = require("./routes/apartments");
 const apartmentCommentsRoutes = require("./routes/apartmentComments");
+const helpRoutes = require("./routes/helps");
+const helpcommentRoutes = require("./routes/helpComments");
 const profileRoutes = require("./routes/profile");
 const indexRoutes = require("./routes/index");
+const ratingRoutes = require("./routes/ratings");
+
 const jobRoutesAPI = require("./routes/api/jobs");
 const jobcommentRoutesAPI = require("./routes/api/jobComments");
 const educationRoutesAPI = require("./routes/api/education");
@@ -59,6 +62,8 @@ app.use("/education", educationRoutes);
 app.use("/education/:id/comments", educationCommentsRoutes);
 app.use("/apartments", apartmentRoutes);
 app.use("/apartments/:id/comments", apartmentCommentsRoutes);
+app.use("/helps", helpRoutes);
+app.use("/helps/:id/comments", helpcommentRoutes);
 app.use("/profile", profileRoutes);
 app.use("/", ratingRoutes);
 

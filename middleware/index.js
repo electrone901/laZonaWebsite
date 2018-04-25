@@ -1,6 +1,7 @@
 const Job = require("../models/job");
 const Education = require("../models/education");
 const Apartment = require("../models/apartment");
+const Help = require("../models/help");
 const Comment = require("../models/comment");
 
 let middlewareObj = {};
@@ -62,6 +63,30 @@ middlewareObj.checkApartmentOwnership = function(req, res, next){
             }
             else{
                 if(foundApartment.author.id.equals(req.user._id)){
+                    next();
+                }
+                else{
+                    req.flash("error", "Permission Required");
+                    res.redirect("back");
+                }
+            }
+        });
+    }
+    else{
+        req.flash("error", "Please Login First");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkHelpOwnership = function(req, res, next){
+    if (req.isAuthenticated()){
+        Help.findById(req.params.id, function(err, foundHelp){
+            if(err || !foundHelp){
+                req.flash("error", "Help not found");
+                res.redirect("back");
+            }
+            else{
+                if(foundHelp.author.id.equals(req.user._id)){
                     next();
                 }
                 else{
@@ -140,6 +165,21 @@ middlewareObj.checkEducationRatingExists = function(req, res, next){
             if(education.ratings[i].author.id.equals(req.user._id)) {
                 req.flash("error", "You already liked this!");
                 return res.redirect('/education/' + education._id);
+            }
+        }
+        next();
+    });
+};
+
+middlewareObj.checkHelpRatingExists = function(req, res, next){
+    Help.findById(req.params.id).populate("ratings").exec(function(err, help){
+        if(err){
+          console.log(err);
+        }
+        for(let i = 0; i < help.ratings.length; i++ ) {
+            if(help.ratings[i].author.id.equals(req.user._id)) {
+                req.flash("error", "You already liked this!");
+                return res.redirect('/helps/' + help._id);
             }
         }
         next();
