@@ -195,11 +195,23 @@ module.exports = {
             }
             for(let i = 0; i < help.ratings.length; i++ ) {
                 if(help.ratings[i].author.id.equals(req.user._id)) {
-                    req.flash("error", "You already liked this!");
+                    req.flash("error", "You already liked or flag this!");
                     return res.redirect('/helps/' + help._id);
                 }
             }
-            next();
+            Help.findById(req.params.id).populate("flags").exec(function(err, help){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < help.flags.length; i++ ) {
+                    if(help.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/helps/' + help._id);
+                    }
+                }
+                next();
+            });
         });
     }
 };

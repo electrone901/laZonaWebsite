@@ -22,7 +22,14 @@ let helpSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: "Rating"
       }
-   ]
+   ],
+   flags: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "Flag"
+      }
+   ],
+   isFlag: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model("Help", helpSchema);
