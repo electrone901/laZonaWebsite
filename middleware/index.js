@@ -3,6 +3,7 @@ const Education = require("../models/education");
 const Apartment = require("../models/apartment");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
+const Event = require("../models/event");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -107,6 +108,29 @@ module.exports = {
                 }
                 else{
                     if(foundBuySale.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkEventOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            Event.findById(req.params.id, function(err, foundEvent){
+                if(err || !foundEvent){
+                    req.flash("error", "Event not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundEvent.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -259,6 +283,33 @@ module.exports = {
                     if(buySale.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/buySales/' + buySale._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkEventRatingExists: function(req, res, next){
+        Event.findById(req.params.id).populate("ratings").exec(function(err, event){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < event.ratings.length; i++ ) {
+                if(event.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/events/' + event._id);
+                }
+            }
+            Event.findById(req.params.id).populate("flags").exec(function(err, event){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < event.flags.length; i++ ) {
+                    if(event.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/events/' + event._id);
                     }
                 }
                 next();

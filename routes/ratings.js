@@ -4,6 +4,7 @@ const Job = require("../models/job");
 const Education = require("../models/education");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
+const Event = require("../models/event");
 const Rating = require("../models/rating");
 const middleware = require("../middleware");
 
@@ -100,6 +101,30 @@ router.post('/buySales/:id/ratings', middleware.isLoggedIn, middleware.checkBuyS
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/buySales/' + buySale._id);
+	});
+});
+
+router.post('/events/:id/ratings', middleware.isLoggedIn, middleware.checkEventRatingExists, function(req, res) {
+	Event.findById(req.params.id, function(err, event) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		event.ratings.push(rating);
+        		event.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/events/' + event._id);
 	});
 });
 

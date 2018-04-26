@@ -4,6 +4,7 @@ const Job = require("../models/job");
 const Education = require("../models/education");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
+const Event = require("../models/event");
 const Flag = require("../models/flag");
 const middleware = require("../middleware");
 
@@ -112,6 +113,33 @@ router.post('/buySales/:id/flags', middleware.isLoggedIn, middleware.checkBuySal
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/buySales/' + buySale._id);
+	});
+});
+
+router.post('/events/:id/flags', middleware.isLoggedIn, middleware.checkEventRatingExists, function(req, res) {
+	Event.findById(req.params.id, function(err, event) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		event.flags.push(flag);
+        		if(event.flags.length >= 5){
+        			event.isFlag = true;
+        		}
+        		event.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/events/' + event._id);
 	});
 });
 
