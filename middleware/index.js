@@ -141,7 +141,7 @@ module.exports = {
             }
             for(let i = 0; i < job.ratings.length; i++ ) {
                 if(job.ratings[i].author.id.equals(req.user._id)) {
-                    req.flash("error", "You already liked this!");
+                    req.flash("error", "You already liked or flag this!");
                     return res.redirect('/jobs/' + job._id);
                 }
             }
@@ -152,16 +152,13 @@ module.exports = {
                 }
                 for(let i = 0; i < job.flags.length; i++ ) {
                     if(job.flags[i].author.id.equals(req.user._id)) {
-                        req.flash("error", "You already liked this!");
+                        req.flash("error", "You already liked or flag this!");
                         return res.redirect('/jobs/' + job._id);
                     }
                 }
                 next();
             });
         });
-    },
-    checkJobFlagExists: function(req, res, next){
-        
     },
     checkEducationRatingExists: function(req, res, next){
         Education.findById(req.params.id).populate("ratings").exec(function(err, education){

@@ -28,7 +28,8 @@ let jobSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: "Flag"
       }
-   ]
+   ],
+   isFlag: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model("Job", jobSchema);

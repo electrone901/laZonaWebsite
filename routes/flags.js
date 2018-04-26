@@ -20,6 +20,9 @@ router.post('/jobs/:id/flags', middleware.isLoggedIn, middleware.checkJobRatingE
             	flag.author.username = req.user.username;
             	flag.save();
         		job.flags.push(flag);
+        		if(job.flags.length >= 5){
+        			job.isFlag = true;
+        		}
         		job.save();
         	});
 		}
