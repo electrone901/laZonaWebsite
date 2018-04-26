@@ -3,6 +3,7 @@ const router  = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Education = require("../models/education");
 const Help = require("../models/help");
+const BuySale = require("../models/buySale");
 const Flag = require("../models/flag");
 const middleware = require("../middleware");
 
@@ -84,6 +85,33 @@ router.post('/helps/:id/flags', middleware.isLoggedIn, middleware.checkHelpRatin
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/helps/' + help._id);
+	});
+});
+
+router.post('/buySales/:id/flags', middleware.isLoggedIn, middleware.checkBuySaleRatingExists, function(req, res) {
+	BuySale.findById(req.params.id, function(err, buySale) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		buySale.flags.push(flag);
+        		if(buySale.flags.length >= 5){
+        			buySale.isFlag = true;
+        		}
+        		buySale.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/buySales/' + buySale._id);
 	});
 });
 

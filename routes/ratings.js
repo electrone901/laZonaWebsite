@@ -3,6 +3,7 @@ const router  = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Education = require("../models/education");
 const Help = require("../models/help");
+const BuySale = require("../models/buySale");
 const Rating = require("../models/rating");
 const middleware = require("../middleware");
 
@@ -75,6 +76,30 @@ router.post('/helps/:id/ratings', middleware.isLoggedIn, middleware.checkHelpRat
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/helps/' + help._id);
+	});
+});
+
+router.post('/buySales/:id/ratings', middleware.isLoggedIn, middleware.checkBuySaleRatingExists, function(req, res) {
+	BuySale.findById(req.params.id, function(err, buySale) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		buySale.ratings.push(rating);
+        		buySale.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/buySales/' + buySale._id);
 	});
 });
 

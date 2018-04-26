@@ -2,6 +2,7 @@ const Job = require("../models/job");
 const Education = require("../models/education");
 const Apartment = require("../models/apartment");
 const Help = require("../models/help");
+const BuySale = require("../models/buySale");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -83,6 +84,29 @@ module.exports = {
                 }
                 else{
                     if(foundHelp.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkBuySaleOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            BuySale.findById(req.params.id, function(err, foundBuySale){
+                if(err || !foundBuySale){
+                    req.flash("error", "Sale not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundBuySale.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -208,6 +232,33 @@ module.exports = {
                     if(help.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/helps/' + help._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkBuySaleRatingExists: function(req, res, next){
+        BuySale.findById(req.params.id).populate("ratings").exec(function(err, buySale){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < buySale.ratings.length; i++ ) {
+                if(buySale.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/buySales/' + buySale._id);
+                }
+            }
+            BuySale.findById(req.params.id).populate("flags").exec(function(err, buySale){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < buySale.flags.length; i++ ) {
+                    if(buySale.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/buySales/' + buySale._id);
                     }
                 }
                 next();
