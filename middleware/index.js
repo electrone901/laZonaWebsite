@@ -168,11 +168,23 @@ module.exports = {
             }
             for(let i = 0; i < education.ratings.length; i++ ) {
                 if(education.ratings[i].author.id.equals(req.user._id)) {
-                    req.flash("error", "You already liked this!");
+                    req.flash("error", "You already liked or flag this!");
                     return res.redirect('/education/' + education._id);
                 }
             }
-            next();
+            Education.findById(req.params.id).populate("flags").exec(function(err, education){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < education.flags.length; i++ ) {
+                    if(education.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/education/' + education._id);
+                    }
+                }
+                next();
+            });
         });
     },
     checkHelpRatingExists: function(req, res, next){
