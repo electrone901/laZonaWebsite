@@ -145,8 +145,23 @@ module.exports = {
                     return res.redirect('/jobs/' + job._id);
                 }
             }
-            next();
+            Job.findById(req.params.id).populate("flags").exec(function(err, job){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < job.flags.length; i++ ) {
+                    if(job.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked this!");
+                        return res.redirect('/jobs/' + job._id);
+                    }
+                }
+                next();
+            });
         });
+    },
+    checkJobFlagExists: function(req, res, next){
+        
     },
     checkEducationRatingExists: function(req, res, next){
         Education.findById(req.params.id).populate("ratings").exec(function(err, education){

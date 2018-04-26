@@ -19,6 +19,7 @@ const helpcommentRoutes = require("./routes/helpComments");
 const profileRoutes = require("./routes/profile");
 const indexRoutes = require("./routes/index");
 const ratingRoutes = require("./routes/ratings");
+const flagRoutes = require("./routes/flags");
 
 const jobRoutesAPI = require("./routes/api/jobs");
 const jobcommentRoutesAPI = require("./routes/api/jobComments");
@@ -65,7 +66,8 @@ app.use("/apartments/:id/comments", apartmentCommentsRoutes);
 app.use("/helps", helpRoutes);
 app.use("/helps/:id/comments", helpcommentRoutes);
 app.use("/profile", profileRoutes);
-app.use("/", ratingRoutes);
+app.use(ratingRoutes);
+app.use(flagRoutes);
 
 app.use("/api/v1/jobs", jobRoutesAPI);
 app.use("/api/v1/jobs/:id/comments", jobcommentRoutesAPI);

@@ -22,6 +22,12 @@ let jobSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: "Rating"
       }
+    ],
+    flags: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "Flag"
+      }
    ]
 });
 
