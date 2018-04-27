@@ -9,6 +9,7 @@ const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Flag = require("../models/flag");
 const Pet = require("../models/pet");
+const Internship = require("../models/internship");
 const middleware = require("../middleware");
 
 router.post('/jobs/:id/flags', middleware.isLoggedIn, middleware.checkJobRatingExists, function(req, res) {
@@ -216,7 +217,7 @@ router.post('/pets/:id/flags', middleware.isLoggedIn, middleware.checkPetRatingE
             	flag.author.username = req.user.username;
             	flag.save();
         		pet.flags.push(flag);
-        		if(pet.flags.length >= 2){
+        		if(pet.flags.length >= 5){
         			pet.isFlag = true;
         		}
         		pet.save();
@@ -224,6 +225,33 @@ router.post('/pets/:id/flags', middleware.isLoggedIn, middleware.checkPetRatingE
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/pets/' + pet._id);
+	});
+});
+
+router.post('/internships/:id/flags', middleware.isLoggedIn, middleware.checkInternshipRatingExists, function(req, res) {
+	Internship.findById(req.params.id, function(err, internship) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		internship.flags.push(flag);
+        		if(internship.flags.length >= 2){
+        			internship.isFlag = true;
+        		}
+        		internship.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/internships/' + internship._id);
 	});
 });
 

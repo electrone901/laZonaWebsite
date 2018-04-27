@@ -7,6 +7,7 @@ const Event = require("../models/event");
 const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Pet = require("../models/pet");
+const Internship = require("../models/internship");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -203,6 +204,29 @@ module.exports = {
                 }
                 else{
                     if(foundPet.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkInternshipOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            Internship.findById(req.params.id, function(err, foundInternship){
+                if(err || !foundInternship){
+                    req.flash("error", "Internship not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundInternship.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -463,6 +487,33 @@ module.exports = {
                     if(pet.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/pets/' + pet._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkInternshipRatingExists: function(req, res, next){
+        Internship.findById(req.params.id).populate("ratings").exec(function(err, internship){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < internship.ratings.length; i++ ) {
+                if(internship.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/internships/' + internship._id);
+                }
+            }
+            Internship.findById(req.params.id).populate("flags").exec(function(err, internship){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < internship.flags.length; i++ ) {
+                    if(internship.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/internships/' + internship._id);
                     }
                 }
                 next();

@@ -8,6 +8,7 @@ const Event = require("../models/event");
 const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Pet = require("../models/pet");
+const Internship = require("../models/internship");
 const Rating = require("../models/rating");
 const middleware = require("../middleware");
 
@@ -200,6 +201,30 @@ router.post('/pets/:id/ratings', middleware.isLoggedIn, middleware.checkPetRatin
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/pets/' + pet._id);
+	});
+});
+
+router.post('/internships/:id/ratings', middleware.isLoggedIn, middleware.checkInternshipRatingExists, function(req, res) {
+	Internship.findById(req.params.id, function(err, internship) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		internship.ratings.push(rating);
+        		internship.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/internships/' + internship._id);
 	});
 });
 
