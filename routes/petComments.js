@@ -1,31 +1,31 @@
 const express = require("express");
 const router = express.Router({mergeParams: true});
-const FreeThing = require("../models/freeThing");
+const Pet = require("../models/pet");
 const Comment = require("../models/comment");
 const middleware = require("../middleware/index.js");
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
-    FreeThing.findById(req.params.id, function(err, freeThing){
+    Pet.findById(req.params.id, function(err, pet){
         if(err){
             req.flash("error", err);
         }
         else{
-            res.render("freeThings/comments/new", {freeThing: freeThing});
+            res.render("pets/comments/new", {pet: pet});
         }
     });
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
-    FreeThing.findById(req.params.id, function(err, freeThing){
+    Pet.findById(req.params.id, function(err, pet){
         if(err){
             req.flash("error", err);
-            res.redirect("/freeThings");
+            res.redirect("/pets");
         }
         else{
             Comment.create(req.body.comment, function(err, comment){
                 if(err){
                     req.flash("error", "Something went wrong");
-                    res.redirect("/freeThings");
+                    res.redirect("/pets");
                 }
                 else{
                     comment.author.id = req.user._id;
@@ -33,10 +33,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     
                     comment.save();
                     
-                    freeThing.comments.push(comment);
-                    freeThing.save();
+                    pet.comments.push(comment);
+                    pet.save();
                     req.flash("success", "Successfully added comment");
-                    res.redirect("/freeThings/" + freeThing._id);
+                    res.redirect("/pets/" + pet._id);
                 }
             });
         }
@@ -50,7 +50,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
             res.redirect("back");
         }
         else{
-            res.render("freeThings/comments/edit", {freeThing: req.params.id, comment: foundComment});
+            res.render("pets/comments/edit", {pet: req.params.id, comment: foundComment});
         }
     });
 });
@@ -63,7 +63,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
         }
         else{
             req.flash("success", "Changes Saved");
-            res.redirect("/freeThings/" + req.params.id);
+            res.redirect("/pets/" + req.params.id);
         }
     });
 });
@@ -76,7 +76,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
         }
         else{
             req.flash("success", "Comment Deleted");
-            res.redirect("/freeThings/" + req.params.id);
+            res.redirect("/pets/" + req.params.id);
         }
     });
 });

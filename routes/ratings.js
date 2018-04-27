@@ -7,6 +7,7 @@ const BuySale = require("../models/buySale");
 const Event = require("../models/event");
 const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
+const Pet = require("../models/pet");
 const Rating = require("../models/rating");
 const middleware = require("../middleware");
 
@@ -175,6 +176,30 @@ router.post('/freeThings/:id/ratings', middleware.isLoggedIn, middleware.checkFr
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/freeThings/' + freeThing._id);
+	});
+});
+
+router.post('/pets/:id/ratings', middleware.isLoggedIn, middleware.checkPetRatingExists, function(req, res) {
+	Pet.findById(req.params.id, function(err, pet) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		pet.ratings.push(rating);
+        		pet.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/pets/' + pet._id);
 	});
 });
 

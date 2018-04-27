@@ -8,6 +8,7 @@ const Event = require("../models/event");
 const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Flag = require("../models/flag");
+const Pet = require("../models/pet");
 const middleware = require("../middleware");
 
 router.post('/jobs/:id/flags', middleware.isLoggedIn, middleware.checkJobRatingExists, function(req, res) {
@@ -196,6 +197,33 @@ router.post('/freeThings/:id/flags', middleware.isLoggedIn, middleware.checkFree
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/freeThings/' + freeThing._id);
+	});
+});
+
+router.post('/pets/:id/flags', middleware.isLoggedIn, middleware.checkPetRatingExists, function(req, res) {
+	Pet.findById(req.params.id, function(err, pet) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		pet.flags.push(flag);
+        		if(pet.flags.length >= 2){
+        			pet.isFlag = true;
+        		}
+        		pet.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/pets/' + pet._id);
 	});
 });
 

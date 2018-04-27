@@ -6,6 +6,7 @@ const BuySale = require("../models/buySale");
 const Event = require("../models/event");
 const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
+const Pet = require("../models/pet");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -179,6 +180,29 @@ module.exports = {
                 }
                 else{
                     if(foundFreeThing.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkPetOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            Pet.findById(req.params.id, function(err, foundPet){
+                if(err || !foundPet){
+                    req.flash("error", "Pet not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundPet.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -412,6 +436,33 @@ module.exports = {
                     if(freeThing.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/freeThings/' + freeThing._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkPetRatingExists: function(req, res, next){
+        Pet.findById(req.params.id).populate("ratings").exec(function(err, pet){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < pet.ratings.length; i++ ) {
+                if(pet.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/pets/' + pet._id);
+                }
+            }
+            Pet.findById(req.params.id).populate("flags").exec(function(err, pet){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < pet.flags.length; i++ ) {
+                    if(pet.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/pets/' + pet._id);
                     }
                 }
                 next();
