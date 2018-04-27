@@ -1,0 +1,133 @@
+<% include ../partials/header %>
+
+    <p class="lead">Event</p>
+    <div class="pull-right">
+        <% if(currentUser && event.author.id.equals(currentUser._id)){ %>
+            <a class="btn btn-warning" href="/events/<%= event._id %>/edit">
+                Edit
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            </a>
+            <form id="delete-form" action="/events/<%= event._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">
+                    Delete
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </form>
+        <% } %>
+    </div>
+    <div class="thumbnail">
+        <img class="img-responsive" src="<%= event.image %>">
+        <div class="caption-full">
+            <h4 class="pull-right"><%= event.createdAt.toDateString() %></h4>
+            <h4><a><%= event.title %></a></h4>
+            <span class="label label-info">Description</span>
+            <p><%= event.description %></p>
+            <span class="label label-info">Location</span>
+            <p><%= event.location %></p>
+            <p>
+                <em>Submitted By <a href="/profile/<%= event.author.id %>"><strong><%= event.author.username %></strong></a>, <%= moment(event.createdAt).fromNow() %></em>
+            </p>
+            <hr>
+            <form action="/events/<%= event._id %>/ratings" method="POST">
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary">
+                        (<%= event.ratings.length %>)
+                        Likes
+                    </button>
+                </div>
+            </form>
+            <div class="fb-share-button" data-href="/events/<%= event._id %>" data-layout="button" data-size="large" data-mobile-iframe="true">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fclonezone-ysongh.c9users.io%2Fjobs&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+            </div>
+            <% if(!event.isFlag){ %>
+                <form action="/events/<%= event._id %>/flags" method="POST">
+                    <div class="form-group">
+                        <button class="btn btn-sm btn-primary margin-top">
+                            (<%= event.flags.length %>)
+                            Flags This Post
+                        </button>
+                    </div>
+                </form>
+            <% } %>
+        </div>
+    </div>
+    <div class="well">
+        <div class="text-right">
+            <a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add New Comment</a>
+        </div>
+        <h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
+        <div class="collapse" id="collapseComment">
+            <div class="well leftBorder">
+                <% if(!currentUser) { %>
+                    <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+                <% } %>
+                <% if(currentUser) { %>
+                    <h4>Write your comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
+                    <form id="add-comment-form" action="/events/<%= event._id %>/comments" method="POST">
+                        <div class="form-group">
+                            <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-sm">Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                        </div>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+        <hr>
+        <% if (event.comments.length === 0) { %>
+            <em class="grey">No comments yet.</em>
+        <% } %>
+        <% event.comments.forEach(function(comment) { %>
+        <div class="row">
+            <div class="col-md-12">
+                <strong>
+                    <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+                        <span class="glyphicon glyphicon-user blue" aria-hidden="true"></span>
+                    <% } else { %>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <% } %>
+                    <a href="/profile/<%= comment.author.id %>"><strong><%= comment.author.username %></strong></a>
+                </strong>
+                
+                <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                
+                <p><%= comment.text %></p>
+                
+                <% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
+                
+                    <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">
+                    Edit</a>
+        
+                    <form id="delete-form" action="/events/<%= event._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
+                        <button class="btn btn-xs btn-danger">Delete</button>
+                    </form>
+        
+                    <div class="collapse" id="collapseEdit<%= comment._id %>">
+                        <div class="well leftBorder2">
+                            <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
+                            <form id="edit-comment-form<%= comment._id %>" action="/events/<%= event._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="5" cols="70"><%= comment.text %></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-warning btn-sm">Edit comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+        <hr>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+
+<% include ../partials/footer %>

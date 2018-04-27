@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <h1 class="center">Edit <%= pet.title %></h1>
+        <div class="form">
+            <form action="/pets/<%= pet._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="label label-info" for="title">Title</label>
+                    <input class="form-control" type="text" name="pet[title]" value="<%= pet.title %>">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="label label-info" for="description">Description</label>
+                    <textarea class="form-control" name="pet[description]" rows="5"><%= pet.description %></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/pets/<%= pet._id %>">Go back</a>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
