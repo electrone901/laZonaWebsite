@@ -6,6 +6,7 @@ const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
 const Service = require("../models/service");
+const FreeThing = require("../models/freeThing");
 const Flag = require("../models/flag");
 const middleware = require("../middleware");
 
@@ -160,7 +161,7 @@ router.post('/services/:id/flags', middleware.isLoggedIn, middleware.checkServic
             	flag.author.username = req.user.username;
             	flag.save();
         		service.flags.push(flag);
-        		if(service.flags.length >= 2){
+        		if(service.flags.length >= 5){
         			service.isFlag = true;
         		}
         		service.save();
@@ -168,6 +169,33 @@ router.post('/services/:id/flags', middleware.isLoggedIn, middleware.checkServic
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/services/' + service._id);
+	});
+});
+
+router.post('/freeThings/:id/flags', middleware.isLoggedIn, middleware.checkFreeThingRatingExists, function(req, res) {
+	FreeThing.findById(req.params.id, function(err, freeThing) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		freeThing.flags.push(flag);
+        		if(freeThing.flags.length >= 5){
+        			freeThing.isFlag = true;
+        		}
+        		freeThing.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/freeThings/' + freeThing._id);
 	});
 });
 

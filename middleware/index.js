@@ -5,6 +5,7 @@ const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
 const Service = require("../models/service");
+const FreeThing = require("../models/freeThing");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -155,6 +156,29 @@ module.exports = {
                 }
                 else{
                     if(foundService.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkFreeThingOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            FreeThing.findById(req.params.id, function(err, foundFreeThing){
+                if(err || !foundFreeThing){
+                    req.flash("error", "Free Thing not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundFreeThing.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -361,6 +385,33 @@ module.exports = {
                     if(service.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/services/' + service._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkFreeThingRatingExists: function(req, res, next){
+        FreeThing.findById(req.params.id).populate("ratings").exec(function(err, freeThing){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < freeThing.ratings.length; i++ ) {
+                if(freeThing.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/freeThings/' + freeThing._id);
+                }
+            }
+            FreeThing.findById(req.params.id).populate("flags").exec(function(err, freeThing){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < freeThing.flags.length; i++ ) {
+                    if(freeThing.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/freeThings/' + freeThing._id);
                     }
                 }
                 next();
