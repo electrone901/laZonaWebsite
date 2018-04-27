@@ -33,7 +33,6 @@ const indexRoutes = require("./routes/index");
 const ratingRoutes = require("./routes/ratings");
 const flagRoutes = require("./routes/flags");
 
-
 const jobRoutesAPI = require("./routes/api/jobs");
 const jobcommentRoutesAPI = require("./routes/api/jobComments");
 const educationRoutesAPI = require("./routes/api/education");
@@ -42,8 +41,7 @@ const apartmentRoutesAPI = require("./routes/api/apartments");
 const apartmentCommentsRoutesAPI = require("./routes/api/apartmentComments");
 const profileRoutesAPI = require("./routes/api/profile");
 
-
-mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
+mongoose.connect(process.env.DATABASEURL);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -105,6 +103,6 @@ app.use("/api/v1/profile", profileRoutesAPI);
 
 app.use(indexRoutes);
 
-app.listen(8000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Zone server has started");
 });
