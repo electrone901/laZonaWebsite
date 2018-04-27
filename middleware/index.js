@@ -4,6 +4,7 @@ const Apartment = require("../models/apartment");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
+const Service = require("../models/service");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -131,6 +132,29 @@ module.exports = {
                 }
                 else{
                     if(foundEvent.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkServiceOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            Service.findById(req.params.id, function(err, foundService){
+                if(err || !foundService){
+                    req.flash("error", "Service not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundService.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -310,6 +334,33 @@ module.exports = {
                     if(event.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/events/' + event._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkServiceRatingExists: function(req, res, next){
+        Service.findById(req.params.id).populate("ratings").exec(function(err, service){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < service.ratings.length; i++ ) {
+                if(service.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/services/' + service._id);
+                }
+            }
+            Service.findById(req.params.id).populate("flags").exec(function(err, service){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < service.flags.length; i++ ) {
+                    if(service.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/services/' + service._id);
                     }
                 }
                 next();

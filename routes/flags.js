@@ -5,6 +5,7 @@ const Education = require("../models/education");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
+const Service = require("../models/service");
 const Flag = require("../models/flag");
 const middleware = require("../middleware");
 
@@ -140,6 +141,33 @@ router.post('/events/:id/flags', middleware.isLoggedIn, middleware.checkEventRat
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/events/' + event._id);
+	});
+});
+
+router.post('/services/:id/flags', middleware.isLoggedIn, middleware.checkServiceRatingExists, function(req, res) {
+	Service.findById(req.params.id, function(err, service) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		service.flags.push(flag);
+        		if(service.flags.length >= 2){
+        			service.isFlag = true;
+        		}
+        		service.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/services/' + service._id);
 	});
 });
 
