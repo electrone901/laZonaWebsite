@@ -41,7 +41,8 @@ const apartmentRoutesAPI = require("./routes/api/apartments");
 const apartmentCommentsRoutesAPI = require("./routes/api/apartmentComments");
 const profileRoutesAPI = require("./routes/api/profile");
 
-mongoose.connect(process.env.DATABASEURL);
+// mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -103,6 +104,7 @@ app.use("/api/v1/profile", profileRoutesAPI);
 
 app.use(indexRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
+// app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(8000, process.env.IP, function(){
     console.log("Zone server has started");
 });

@@ -1,3 +1,3 @@
 The Zone
 
-https://zone123.herokuapp.com/
+https://lazona.herokuapp.com/
