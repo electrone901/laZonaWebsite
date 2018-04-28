@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Buy & Sale</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/buySales/new">Add New Sale</a>
+            </p>
+            <form action="/buySales" method="GET" class="form-inline">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <input type="text" name="search" placeholder="Sales Search..." class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <div class="row text-center flex" >
+        <div class="col-md-12">
+            <% if(noMatch !== null){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% buySales.forEach(function(buySale){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <a href="/buySales/<%= buySale._id %>">
+                        <img src="<%= buySale.image %>">
+                    </a>
+                    <div class="caption">
+                        <h4><%= buySale.name %></h4>
+                        <h5>$<%= buySale.price %></h5>
+                    </div>
+                    <p>
+                        <a href="/buySales/<%= buySale._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>

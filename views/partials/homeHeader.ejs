@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Zone</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+
+        <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+        <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    </head>
+
+    <body>
+        <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+         
+        <!-- NAVIGATION MENU -->
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">The Zone</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="<%= typeof page !== 'undefined' && page === 'donate' ? 'active' : '' %>"><a href="/donate">Donate</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav">
+                        <li class="<%= typeof page !== 'undefined' && page === 'howItWorks' ? 'active' : '' %>"><a href="/howItWorks">¿Cómo funciona?</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <% if(!currentUser){ %>
+                            <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
+                            <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+                        <% } else { %>
+                            <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>"><a href="/profile/<%= currentUser.id%>">Signed In As <%= currentUser.username %></a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- HEADER -->
+        <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="6000" id="bs-carousel">
+          <!-- Overlay -->
+          <div class="overlay"></div>
+
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#bs-carousel" data-slide-to="1"></li>
+            <li data-target="#bs-carousel" data-slide-to="2"></li>
+          </ol>
+          
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item slides active">
+              <div class="slide-1"></div>
+              <div class="hero">
+                <hgroup>
+                     <h1>La Zona</h1>       
+                    <h3>Conectandote con oportunidades</h3>
+                </hgroup>
+                <button class="btn btn-hero btn-lg" role="button">See all features</button>
+
+                <div class="sliderLink">
+                    <a href="https://zone123.herokuapp.com/apartments" class="btn btn-depth btn-blue">Encuentra una habitación</a>
+                    <span class="h2 cursive mh20">or</span>
+                    <a href="https://zone123.herokuapp.com/jobs" class="btn btn-depth btn-red">Encuentra un trabajo</a>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+            <div class="item slides">
+              <div class="slide-2"></div>
+              <div class="hero">        
+                <hgroup>
+                    <h1>We are smart</h1>        
+                    <h2>Get start your next awesome project</h2>
+                </hgroup>       
+                <button class="btn btn-hero btn-lg" role="button">See all features</button>
+              </div>
+            </div>
+
+            <div class="item slides">
+              <div class="slide-3"></div>
+              <div class="hero">        
+                <hgroup>
+                    <h1>We are amazing</h1>        
+                    <h3>Get start your next awesome project</h3>
+                </hgroup>
+                <button class="btn btn-hero btn-lg" role="button">See all features</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="container">
+            <% if(error && error.length > 0){ %>
+                 <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if(success && success.length > 0){ %>
+                <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+            <% if(donate && donate.length > 0){ %>
+                <div class="alert alert-success" role="alert">
+                    <p>
+                        <%= donate %>, Would you like to donate? Your donation will help us improve this website.
+                        <a href="/donate">Donate Now</a>
+                    </p>
+                </div>
+            <% } %>
+        </div>
+        <div class="container">

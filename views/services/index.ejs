@@ -1,0 +1,43 @@
+<% include ../partials/header %>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Service</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/services/new">Add New Service</a>
+            </p>
+            <form action="/services" method="GET" class="form-inline">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <input type="text" name="search" placeholder="Service Search..." class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <div class="row text-center flex" >
+        <div class="col-md-12">
+            <% if(noMatch !== null){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% services.forEach(function(service){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <a href="/services/<%= service._id %>">
+                        <img src="<%= service.image %>">
+                    </a>
+                    <div class="caption">
+                        <h4><%= service.title %></h4>
+                        <h5>$<%= service.price %></h5>
+                    </div>
+                    <p>
+                        <a href="/services/<%= service._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>

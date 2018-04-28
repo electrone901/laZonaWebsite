@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Internships</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/internships/new">Add New Internship</a>
+            </p>
+            <form action="/internships" method="GET" class="form-inline">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <% if(noMatch !== null){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% internships.forEach(function(internship){ %>
+            <div class="col-md-12 col-sm-6">
+                <div class="thumbnail ridgeBorder">
+                    <a href="/internships/<%= internship._id %>"><p><%= internship.title %></p></a>
+                    <p><%- internship.description.substring(0, 100) %>...</p>
+                    <span><%= moment(internship.createdAt).fromNow() %> by <a href="/profile/<%= internship.author.id %>"><%= internship.author.username %></span></a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>

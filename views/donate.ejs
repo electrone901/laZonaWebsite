@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+
+    <div class="form">
+        <h1>Donate</h1>
+        <form action="/donate" method="POST">
+            <div class="form-group">
+                <label class="label label-info" for="creditCart">Credit Cart</label>
+                <input class="form-control"type="text" name="creditCart" placeholder="Credit Card">
+            </div>
+            <div class="form-group">
+                <label class="label label-info" for="amount">Amount</label>
+                <input class="form-control"type="text" name="amount" placeholder="Amount">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-lg btn-primary btn-block"type="submit" value="Donate">
+            </div>
+        </form>
+        <a href="/">Go back</a>
+    </div>
+
+<% include ./partials/footer %>
