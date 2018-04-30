@@ -10,6 +10,7 @@ const FreeThing = require("../models/freeThing");
 const Flag = require("../models/flag");
 const Pet = require("../models/pet");
 const Internship = require("../models/internship");
+const Recycle = require("../models/recycle");
 const middleware = require("../middleware");
 
 router.post('/jobs/:id/flags', middleware.isLoggedIn, middleware.checkJobRatingExists, function(req, res) {
@@ -244,7 +245,7 @@ router.post('/internships/:id/flags', middleware.isLoggedIn, middleware.checkInt
             	flag.author.username = req.user.username;
             	flag.save();
         		internship.flags.push(flag);
-        		if(internship.flags.length >= 2){
+        		if(internship.flags.length >= 5){
         			internship.isFlag = true;
         		}
         		internship.save();
@@ -254,5 +255,33 @@ router.post('/internships/:id/flags', middleware.isLoggedIn, middleware.checkInt
 		res.redirect('/internships/' + internship._id);
 	});
 });
+
+router.post('/recycles/:id/flags', middleware.isLoggedIn, middleware.checkRecycleRatingExists, function(req, res) {
+	Recycle.findById(req.params.id, function(err, recycle) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		recycle.flags.push(flag);
+        		if(recycle.flags.length >= 2){
+        			recycle.isFlag = true;
+        		}
+        		recycle.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/recycles/' + recycle._id);
+	});
+});
+
 
 module.exports = router;
