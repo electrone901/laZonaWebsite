@@ -9,6 +9,7 @@ const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Pet = require("../models/pet");
 const Internship = require("../models/internship");
+const Recycle = require("../models/recycle");
 const Rating = require("../models/rating");
 const middleware = require("../middleware");
 
@@ -225,6 +226,30 @@ router.post('/internships/:id/ratings', middleware.isLoggedIn, middleware.checkI
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/internships/' + internship._id);
+	});
+});
+
+router.post('/recycles/:id/ratings', middleware.isLoggedIn, middleware.checkRecycleRatingExists, function(req, res) {
+	Recycle.findById(req.params.id, function(err, recycle) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		recycle.ratings.push(rating);
+        		recycle.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/recycles/' + recycle._id);
 	});
 });
 

@@ -8,6 +8,7 @@ const Service = require("../models/service");
 const FreeThing = require("../models/freeThing");
 const Pet = require("../models/pet");
 const Internship = require("../models/internship");
+const Recycle = require("../models/recycle");
 const Comment = require("../models/comment");
 
 module.exports = {
@@ -227,6 +228,29 @@ module.exports = {
                 }
                 else{
                     if(foundInternship.author.id.equals(req.user._id)){
+                        next();
+                    }
+                    else{
+                        req.flash("error", "Permission Required");
+                        res.redirect("back");
+                    }
+                }
+            });
+        }
+        else{
+            req.flash("error", "Please Login First");
+            res.redirect("back");
+        }
+    },
+    checkRecycleOwnership: function(req, res, next){
+        if (req.isAuthenticated()){
+            Recycle.findById(req.params.id, function(err, foundRecycle){
+                if(err || !foundRecycle){
+                    req.flash("error", "Recycle not found");
+                    res.redirect("back");
+                }
+                else{
+                    if(foundRecycle.author.id.equals(req.user._id)){
                         next();
                     }
                     else{
@@ -514,6 +538,33 @@ module.exports = {
                     if(internship.flags[i].author.id.equals(req.user._id)) {
                         req.flash("error", "You already liked or flag this!");
                         return res.redirect('/internships/' + internship._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
+    checkRecycleRatingExists: function(req, res, next){
+        Recycle.findById(req.params.id).populate("ratings").exec(function(err, recycle){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < recycle.ratings.length; i++ ) {
+                if(recycle.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/recycles/' + recycle._id);
+                }
+            }
+            Recycle.findById(req.params.id).populate("flags").exec(function(err, recycle){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < recycle.flags.length; i++ ) {
+                    if(recycle.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/recycles/' + recycle._id);
                     }
                 }
                 next();
