@@ -78,6 +78,11 @@
     display: inline;
 }
 
+#map {
+    height: 400px;
+    width: 100%;
+}
+
 @media (max-width: 767px) {
     .col-md-3, .col-sm-6{
         width: 60%;

@@ -10,6 +10,9 @@ let apartmentSchema = new mongoose.Schema({
     state: String,
     zipcode: String,
     description: String,
+    location: String,
+    lat: Number,
+    lng: Number,
     note: String,
     createdAt: {type: Date, default: Date.now},
     author: {
