@@ -3,6 +3,17 @@ const router = express.Router();
 const Apartment = require("../models/apartment");
 const middleware = require("../middleware/index.js");
 const multer = require('multer');
+const NodeGeocoder = require('node-geocoder');
+ 
+const options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+ 
+const geocoder = NodeGeocoder(options);
+
 const storage = multer.diskStorage({
   filename: function(req, file, callback) {
     callback(null, Date.now() + file.originalname);
@@ -58,13 +69,22 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
             id: req.user._id,
             username: req.user.username
         };
-    Apartment.create(req.body.apartment, function(err, apartment) {
-        if (err) {
-            req.flash('error', err.message);
-            return res.redirect('back');
-        }
-        req.flash("donate", "Post Created");
-        res.redirect('/apartments/' + apartment.id);
+        geocoder.geocode(req.body.location, function (err, data) {
+            if (err || !data.length) {
+              req.flash('error', 'Invalid address');
+              return res.redirect('back');
+            }
+            req.body.apartment.lat = data[0].latitude;
+            req.body.apartment.lng = data[0].longitude;
+            req.body.apartment.location = data[0].formattedAddress;
+            Apartment.create(req.body.apartment, function(err, apartment) {
+                if (err) {
+                    req.flash('error', err.message);
+                    return res.redirect('back');
+                }
+                req.flash("donate", "Post Created");
+                res.redirect('/apartments/' + apartment.id);
+            });
         });
     });
 });
@@ -95,47 +115,56 @@ router.get("/:id/edit", middleware.checkApartmentOwnership, function(req, res){
 });
 
 router.put("/:id", middleware.checkApartmentOwnership, upload.single('image'), function(req, res){
-    if (req.file) {
-        Apartment.findById(req.params.id, function(err, apartment) {
-            if(err) {
-                req.flash('error', err.message);
-                return res.redirect('back');
-            }
-            cloudinary.v2.uploader.destroy(apartment.image_id, function(err, result){
+    geocoder.geocode(req.body.location, function (err, data) {
+        if (err || !data.length) {
+          req.flash('error', 'Invalid address');
+          return res.redirect('back');
+        }
+        req.body.apartment.lat = data[0].latitude;
+        req.body.apartment.lng = data[0].longitude;
+        req.body.apartment.location = data[0].formattedAddress;
+        if (req.file) {
+            Apartment.findById(req.params.id, function(err, apartment) {
                 if(err) {
                     req.flash('error', err.message);
                     return res.redirect('back');
                 }
-                cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+                cloudinary.v2.uploader.destroy(apartment.image_id, function(err, result){
                     if(err) {
                         req.flash('error', err.message);
                         return res.redirect('back');
                     }
-                    req.body.apartment.image = result.secure_url;
-                    req.body.apartment.image_id = result.public_id;
-
-                    Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
+                    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
                         if(err) {
                             req.flash('error', err.message);
                             return res.redirect('back');
                         }
-                        req.flash('success','Successfully Updated!');
-                        res.redirect('/apartments/' + apartment._id);
+                        req.body.apartment.image = result.secure_url;
+                        req.body.apartment.image_id = result.public_id;
+    
+                        Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
+                            if(err) {
+                                req.flash('error', err.message);
+                                return res.redirect('back');
+                            }
+                            req.flash('success','Successfully Updated!');
+                            res.redirect('/apartments/' + apartment._id);
+                        });
                     });
                 });
             });
-        });
-    } 
-    else {
-        Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
-            if(err) {
-                req.flash('error', err.message);
-                return res.redirect('back');
-            }
-            req.flash('success','Successfully Updated!');
-            res.redirect('/apartments/' + req.params.id);
-        });
-    }
+        } 
+        else {
+            Apartment.findByIdAndUpdate(req.params.id, req.body.apartment, function(err) {
+                if(err) {
+                    req.flash('error', err.message);
+                    return res.redirect('back');
+                }
+                req.flash('success','Successfully Updated!');
+                res.redirect('/apartments/' + req.params.id);
+            });
+        }
+    });
 });
 
 router.delete("/:id", middleware.checkApartmentOwnership, function(req, res){

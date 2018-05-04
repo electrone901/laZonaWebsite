@@ -45,6 +45,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="location">Location</label>
+                    <input class="form-control" type="text" name="location" id="location" value="<%= apartment.location %>">
+                </div>
+                <div class="form-group">
                     <label class="label label-info" for="description">Description</label>
                     <textarea class="form-control" name="apartment[description]" rows="5"><%= apartment.description %></textarea>
                 </div>
@@ -59,5 +63,12 @@
             <a href="/apartments/<%= apartment._id %>">Go back</a>
         </div>
     </div>
-
+    
+    <script>
+        function init() {
+            const input = document.getElementById('location');
+            const autocomplete = new google.maps.places.Autocomplete(input);
+        }
+        google.maps.event.addDomListener(window, 'load', init);
+    </script>
 <% include ../partials/footer %>
