@@ -82,7 +82,7 @@
         <% if (freeThing.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% freeThing.comments.forEach(function(comment) { %>
+        <% freeThing.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

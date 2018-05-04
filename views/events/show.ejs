@@ -82,7 +82,7 @@
         <% if (event.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% event.comments.forEach(function(comment) { %>
+        <% event.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

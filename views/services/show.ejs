@@ -81,7 +81,7 @@
         <% if (service.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% service.comments.forEach(function(comment) { %>
+        <% service.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

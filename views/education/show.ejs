@@ -70,7 +70,7 @@
         <% if (education.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% education.comments.forEach(function(comment) { %>
+        <% education.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>
