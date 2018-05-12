@@ -81,7 +81,7 @@
         <% if (buySale.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% buySale.comments.forEach(function(comment) { %>
+        <% buySale.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

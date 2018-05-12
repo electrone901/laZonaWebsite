@@ -76,7 +76,7 @@
         <% if (recycle.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% recycle.comments.forEach(function(comment) { %>
+        <% recycle.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

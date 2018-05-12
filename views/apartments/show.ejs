@@ -67,7 +67,7 @@
         <% if (apartment.comments.length === 0) { %>
             <em class="grey">No comments yet.</em>
         <% } %>
-        <% apartment.comments.forEach(function(comment) { %>
+        <% apartment.comments.reverse().forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <strong>

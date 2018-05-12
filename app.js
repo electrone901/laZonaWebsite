@@ -43,8 +43,28 @@ const apartmentRoutesAPI = require("./routes/api/apartments");
 const apartmentCommentsRoutesAPI = require("./routes/api/apartmentComments");
 const profileRoutesAPI = require("./routes/api/profile");
 
+const helpRoutesAPI = require("./routes/api/helps");
+const helpcommentRoutesAPI = require("./routes/api/helpComments");
+const buySaleRoutesAPI = require("./routes/api/buySales");
+const buySalecommentRoutesAPI = require("./routes/api/buySaleComments");
+const eventRoutesAPI = require("./routes/api/events");
+const eventcommentRoutesAPI = require("./routes/api/eventComments");
+const serviceRoutesAPI = require("./routes/api/services");
+const servicecommentRoutesAPI = require("./routes/api/serviceComments");
+const freeThingRoutesAPI = require("./routes/api/freeThings");
+const freeThingcommentRoutesAPI = require("./routes/api/freeThingComments");
+const petRoutesAPI = require("./routes/api/pets");
+const petcommentRoutesAPI = require("./routes/api/petComments");
+const internshipRoutesAPI = require("./routes/api/internships");
+const internshipcommentRoutesAPI = require("./routes/api/internshipComments");
+const recycleRoutesAPI = require("./routes/api/recycles");
+const recyclecommentRoutesAPI = require("./routes/api/recycleComments");
+//const indexRoutesAPI = require("./routes/api/index");
+//const ratingRoutesAPI = require("./routes/api/ratings");
+//const flagRoutesAPI = require("./routes/api/flags");
+
 mongoose.connect(process.env.DATABASEURL);
-// mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
+//mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -104,11 +124,27 @@ app.use("/api/v1/education", educationRoutesAPI);
 app.use("/api/v1/education/:id/comments", educationCommentsRoutesAPI);
 app.use("/api/v1/apartments", apartmentRoutesAPI);
 app.use("/api/v1/apartments/:id/comments", apartmentCommentsRoutesAPI);
+app.use("/api/v1/helps", helpRoutesAPI);
+app.use("/api/v1/helps/:id/comments", helpcommentRoutesAPI);
+app.use("/api/v1/buySales", buySaleRoutesAPI);
+app.use("/api/v1/buySales/:id/comments", buySalecommentRoutesAPI);
+app.use("/api/v1/events", eventRoutesAPI);
+app.use("/api/v1/events/:id/comments", eventcommentRoutesAPI);
+app.use("/api/v1/services", serviceRoutesAPI);
+app.use("/api/v1/services/:id/comments", servicecommentRoutesAPI);
+app.use("/api/v1/freeThings", freeThingRoutesAPI);
+app.use("/api/v1/freeThings/:id/comments", freeThingcommentRoutesAPI);
+app.use("/api/v1/pets", petRoutesAPI);
+app.use("/api/v1/pets/:id/comments", petcommentRoutesAPI);
+app.use("/api/v1/internships", internshipRoutesAPI);
+app.use("/api/v1/internships/:id/comments", internshipcommentRoutesAPI);
+app.use("/api/v1/recycles", recycleRoutesAPI);
+app.use("/api/v1/recycles/:id/comments", recyclecommentRoutesAPI);
 app.use("/api/v1/profile", profileRoutesAPI);
 
 app.use(indexRoutes);
 
 app.listen(process.env.PORT, process.env.IP, function(){
-// app.listen(8000, process.env.IP, function(){
+//app.listen(8000, process.env.IP, function(){
     console.log("Zone server has started");
 });
