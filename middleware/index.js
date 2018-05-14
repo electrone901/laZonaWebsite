@@ -355,6 +355,33 @@ module.exports = {
             });
         });
     },
+    checkApartmentRatingExists: function(req, res, next){
+        Apartment.findById(req.params.id).populate("ratings").exec(function(err, apartment){
+            if(err){
+                req.flash("error", err);
+                res.redirect("back");
+            }
+            for(let i = 0; i < apartment.ratings.length; i++ ) {
+                if(apartment.ratings[i].author.id.equals(req.user._id)) {
+                    req.flash("error", "You already liked or flag this!");
+                    return res.redirect('/apartments/' + apartment._id);
+                }
+            }
+            Apartment.findById(req.params.id).populate("flags").exec(function(err, apartment){
+                if(err){
+                    req.flash("error", err);
+                    res.redirect("back");
+                }
+                for(let i = 0; i < apartment.flags.length; i++ ) {
+                    if(apartment.flags[i].author.id.equals(req.user._id)) {
+                        req.flash("error", "You already liked or flag this!");
+                        return res.redirect('/apartments/' + apartment._id);
+                    }
+                }
+                next();
+            });
+        });
+    },
     checkHelpRatingExists: function(req, res, next){
         Help.findById(req.params.id).populate("ratings").exec(function(err, help){
             if(err){

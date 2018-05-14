@@ -2,6 +2,7 @@ const express = require("express");
 const router  = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Education = require("../models/education");
+const Apartment = require("../models/apartment");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
@@ -64,6 +65,33 @@ router.post('/education/:id/flags', middleware.isLoggedIn, middleware.checkEduca
 		}
 		req.flash("success", "Successfully flag this");
 		res.redirect('/education/' + education._id);
+	});
+});
+
+router.post('/apartments/:id/flags', middleware.isLoggedIn, middleware.checkApartmentRatingExists, function(req, res) {
+	Apartment.findById(req.params.id, function(err, apartment) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Flag.create(req.body.flag, function(err, flag) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	flag.author.id = req.user._id;
+            	flag.author.username = req.user.username;
+            	flag.save();
+        		apartment.flags.push(flag);
+        		if(apartment.flags.length >= 5){
+        			apartment.isFlag = true;
+        		}
+        		apartment.save();
+        	});
+		}
+		req.flash("success", "Successfully flag this");
+		res.redirect('/apartments/' + apartment._id);
 	});
 });
 
