@@ -2,6 +2,10 @@ const express = require("express");
 const router  = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Education = require("../models/education");
+<<<<<<< HEAD
+=======
+const Apartment = require("../models/apartment");
+>>>>>>> addingStyle
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
@@ -61,6 +65,33 @@ router.post('/education/:id/ratings', middleware.isLoggedIn, middleware.checkEdu
 	});
 });
 
+<<<<<<< HEAD
+=======
+router.post('/apartments/:id/ratings', middleware.isLoggedIn, middleware.checkApartmentRatingExists, function(req, res) {
+	Apartment.findById(req.params.id, function(err, apartment) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		apartment.ratings.push(rating);
+        		apartment.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/apartments/' + apartment._id);
+	});
+});
+
+>>>>>>> addingStyle
 router.post('/helps/:id/ratings', middleware.isLoggedIn, middleware.checkHelpRatingExists, function(req, res) {
 	Help.findById(req.params.id, function(err, help) {
 		if(err) {
