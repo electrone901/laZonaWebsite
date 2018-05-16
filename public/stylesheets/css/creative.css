@@ -39,7 +39,11 @@ h6 {
 }
 
 .bg-primary {
+<<<<<<< HEAD
   background-color: #F05F40 !important;
+=======
+  background-color: #ef6230 !important;
+>>>>>>> addingStyle
 }
 
 .bg-dark {
@@ -318,3 +322,8 @@ header.masthead p {
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> addingStyle
