@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Recycle</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/recycles/new">Add New Recycle</a>
+            </p>
+            <form action="/recycles" method="GET" class="form-inline">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <% if(noMatch !== null){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% recycles.forEach(function(recycle){ %>
+            <div class="col-md-12 col-sm-6">
+                <div class="thumbnail ridgeBorder">
+                    <a href="/recycles/<%= recycle._id %>"><p><%= recycle.title %></p></a>
+                    <p><%- recycle.description.substring(0, 100) %>...</p>
+                    <span><%= moment(recycle.createdAt).fromNow() %> by <a href="/profile/<%= recycle.author.id %>"><%= recycle.author.username %></span></a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>

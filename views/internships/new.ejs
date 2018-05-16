@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <h1 class="center">Create a New Internship</h1>
+        <div class="form">
+            <form action="/internships" method="POST">
+                <div class="form-group">
+                    <label class="label label-info" for="title">Title</label>
+                    <input class="form-control" type="text" name="title" placeholder="title">
+                </div>
+                <div class="form-group">
+                    <label class="label label-info" for="companyName">Company Name</label>
+                    <input class="form-control" type="text" name="companyName" placeholder="company name">
+                </div>
+                <div class="form-group">
+                    <label class="label label-info" for="description">Description</label>
+                    <textarea class="form-control" name="description" placeholder="description" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="label label-info" for="location">Location</label>
+                    <input class="form-control" type="text" name="location" placeholder="location">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+            <a href="/internships">Go back</a>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
