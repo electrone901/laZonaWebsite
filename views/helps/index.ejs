@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Helps</h1>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/helps/new">Add New Helps</a>
+            </p>
+            <form action="/helps" method="GET" class="form-inline">
+                <div class="form-group">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="submit" value="Search" class="btn btn-default">
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <% if(noMatch !== null){ %>
+                <h3><%= noMatch %></h3>
+            <% } %>
+        </div>
+        <% helps.forEach(function(help){ %>
+            <div class="col-md-12 col-sm-6">
+                <div class="thumbnail ridgeBorder">
+                    <a href="/helps/<%= help._id %>"><p><%= help.title %></p></a>
+                    <p><%- help.description.substring(0, 100) %>...</p>
+                    <span><%= moment(help.createdAt).fromNow() %> by <a href="/profile/<%= help.author.id %>"><%= help.author.username %></span></a>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>
