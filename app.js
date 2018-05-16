@@ -63,8 +63,8 @@ const recyclecommentRoutesAPI = require("./routes/api/recycleComments");
 //const ratingRoutesAPI = require("./routes/api/ratings");
 //const flagRoutesAPI = require("./routes/api/flags");
 
-// mongoose.connect(process.env.DATABASEURL);
-mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
+mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect("mongodb://zone:12345@ds121999.mlab.com:21999/zone123");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -144,7 +144,7 @@ app.use("/api/v1/profile", profileRoutesAPI);
 
 app.use(indexRoutes);
 
-// app.listen(process.env.PORT, process.env.IP, function(){
-app.listen(8000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
+//app.listen(8000, process.env.IP, function(){
     console.log("Zone server has started");
 });
