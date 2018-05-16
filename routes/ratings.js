@@ -2,6 +2,7 @@ const express = require("express");
 const router  = express.Router({mergeParams: true});
 const Job = require("../models/job");
 const Education = require("../models/education");
+const Apartment = require("../models/apartment");
 const Help = require("../models/help");
 const BuySale = require("../models/buySale");
 const Event = require("../models/event");
@@ -58,6 +59,30 @@ router.post('/education/:id/ratings', middleware.isLoggedIn, middleware.checkEdu
 		}
 		req.flash("success", "Successfully liked this");
 		res.redirect('/education/' + education._id);
+	});
+});
+
+router.post('/apartments/:id/ratings', middleware.isLoggedIn, middleware.checkApartmentRatingExists, function(req, res) {
+	Apartment.findById(req.params.id, function(err, apartment) {
+		if(err) {
+		    req.flash('error', err.message);
+            res.redirect('back');
+		}
+		else {
+        	Rating.create(req.body.rating, function(err, rating) {
+        	    if(err) {
+        	        req.flash('error', err.message);
+            		return res.redirect('back');
+        	    }
+            	rating.author.id = req.user._id;
+            	rating.author.username = req.user.username;
+            	rating.save();
+        		apartment.ratings.push(rating);
+        		apartment.save();
+        	});
+		}
+		req.flash("success", "Successfully liked this");
+		res.redirect('/apartments/' + apartment._id);
 	});
 });
 
