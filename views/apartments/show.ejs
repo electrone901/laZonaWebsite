@@ -31,27 +31,37 @@
             </p>
             <div id="map"></div>
             <hr>
-            <form action="/apartments/<%= apartment._id %>/ratings" method="POST">
-                <div class="form-group">
-                    <button class="btn btn-sm btn-primary">
-                        (<%= apartment.ratings.length %>)
-                        Likes
-                    </button>
+            <div class="row center">
+                <div class="col-sm-4">
+                    <form action="/apartments/<%= apartment._id %>/ratings" method="POST">
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-primary">
+                                (<%= apartment.ratings.length %>)
+                                Likes
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <div class="fb-share-button" data-href="/apartments/<%= apartment._id %>" data-layout="button" data-size="large" data-mobile-iframe="true">
-                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fclonezone-ysongh.c9users.io%2Fjobs&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
-            </div>
-            <% if(!apartment.isFlag){ %>
-                <form action="/apartments/<%= apartment._id %>/flags" method="POST">
+                <div class="col-sm-4">
                     <div class="form-group">
-                        <button class="btn btn-sm btn-primary margin-top">
-                            (<%= apartment.flags.length %>)
-                            Flags This Post
-                        </button>
+                        <div class="fb-share-button" data-href="/apartments/<%= apartment._id %>" data-layout="button" data-size="large" data-mobile-iframe="true">
+                            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fclonezone-ysongh.c9users.io%2Fjobs&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+                        </div>
                     </div>
-                </form>
-            <% } %>
+                </div>
+                <div class="col-sm-4">
+                    <% if(!apartment.isFlag){ %>
+                        <form action="/apartments/<%= apartment._id %>/flags" method="POST">
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-primary">
+                                    (<%= apartment.flags.length %>)
+                                    Flags This Post
+                                </button>
+                            </div>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
         </div>
     </div>
     <div class="well">
