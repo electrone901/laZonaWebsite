@@ -14,6 +14,7 @@ let apartmentSchema = new mongoose.Schema({
     lat: Number,
     lng: Number,
     note: String,
+    contact: String,
     createdAt: {type: Date, default: Date.now},
     author: {
         id: {
