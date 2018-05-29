@@ -54,6 +54,10 @@ background-color: #f1825a;
     padding: 9px;
 }
 
+.container .jumbotron{
+    background-color: #ef6230;
+}
+
 .center {
     text-align: center;
 }
@@ -94,10 +98,6 @@ background-color: #f1825a;
 
 .ridgeBorder:hover { 
     background-color: #d4efee;
-}
-
-.margin-top{
-    margin-top: 12px;
 }
 
 #delete-form{

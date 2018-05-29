@@ -26,7 +26,7 @@ router.get("/", function(req, res){
     let noMatch = null;
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Pet.find({name: regex}).sort('-createdAt').exec(function(err, allPets){
+        Pet.find({title: regex}).sort('-createdAt').exec(function(err, allPets){
             if(err){
                 req.flash("error", err.message);
             } 

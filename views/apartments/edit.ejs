@@ -23,6 +23,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="label label-info" for="contact">Contact</label>
+                    <textarea class="form-control" name="apartment[contact]" rows="5"><%= apartment.contact %></textarea>
+                </div>
+                <div class="form-group">
                     <label class="label label-info" for="street">Street</label>
                     <input class="form-control" type="text" name="apartment[street]" value="<%= apartment.street %>">
                 </div>
@@ -45,7 +49,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="location">Location</label>
+                    <label class="label label-info" for="location">Location</label>
                     <input class="form-control" type="text" name="location" id="location" value="<%= apartment.location %>">
                 </div>
                 <div class="form-group">
