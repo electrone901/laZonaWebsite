@@ -54,10 +54,6 @@ background-color: #f1825a;
     padding: 9px;
 }
 
-.container .jumbotron{
-    background-color: #ef6230;
-}
-
 .center {
     text-align: center;
 }
@@ -71,7 +67,6 @@ background-color: #f1825a;
     display:flex; 
     flex-wrap:wrap;
 }
-
 
 .blue{
     color: blue;
@@ -98,6 +93,10 @@ background-color: #f1825a;
 
 .ridgeBorder:hover { 
     background-color: #d4efee;
+}
+
+#orange{
+    background-color: #ef6230;
 }
 
 #delete-form{
