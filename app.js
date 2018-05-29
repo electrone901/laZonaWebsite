@@ -144,7 +144,8 @@ app.use("/api/v1/profile", profileRoutesAPI);
 
 app.use(indexRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
-//app.listen(8000, process.env.IP, function(){
+const port = process.env.PORT || 8080;
+
+app.listen(port, process.env.IP, function(){
     console.log("Zone server has started");
 });
