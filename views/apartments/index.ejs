@@ -6,9 +6,18 @@
             <p>
                 <a class="btn btn-primary btn-lg" href="/apartments/new">Add New Apartment</a>
             </p>
-            <form action="/apartments" method="GET" class="form-inline">
+            <form action="/apartments/title" method="GET" class="form-inline">
                 <div class="form-group">
                     <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Search
+                    </button>
+                </div>
+            </form>
+            <form action="/apartments/city" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="search" placeholder="Search By City..." class="form-control">
                     <button class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         Search
