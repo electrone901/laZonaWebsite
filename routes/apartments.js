@@ -43,7 +43,10 @@ router.get("/", function(req, res){
             } 
             else {
                 if(allApartments.length < 1){
-                    noMatch = "No apartments found";
+                    noMatch = "No apartments found for " + req.query.search;
+                }
+                else{
+                    noMatch = "Here are the result for " + req.query.search;
                 }
                 res.render("apartments/index",{apartments: allApartments, currentUser: req.user, noMatch: noMatch});
            }
