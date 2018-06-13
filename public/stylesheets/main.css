@@ -95,6 +95,10 @@ background-color: #f1825a;
     background-color: #d4efee;
 }
 
+.bodyText{
+    white-space:pre-wrap;
+}
+
 #orange{
     background-color: #ef6230;
 }
@@ -107,6 +111,7 @@ background-color: #f1825a;
     height: 400px;
     width: 100%;
 }
+
 
 @media (max-width: 767px) {
     .col-md-3, .col-sm-6{

@@ -5,7 +5,7 @@
         <div class="caption-full">
             <h4 class="pull-right"><%= help.createdAt.toDateString() %></h4>
             <h4><a><%= help.title %></a></h4>
-            <p><%= help.description %></p>
+            <p class ="bodyText"><%= help.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= help.author.id %>"><strong><%= help.author.username %></strong></a>, <%= moment(help.createdAt).fromNow() %></em>
             </p>

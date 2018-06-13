@@ -22,7 +22,7 @@
             <h4><a><%= buySale.name %></a></h4>
             <h4 class="pull-right">$<%= buySale.price %></h4>
             <span class="label label-info">Description</span>
-            <p><%= buySale.description %></p>
+            <p class="bodyText"><%= buySale.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= buySale.author.id %>"><strong><%= buySale.author.username %></strong></a>, <%= moment(buySale.createdAt).fromNow() %></em>
             </p>
