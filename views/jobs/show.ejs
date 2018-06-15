@@ -5,7 +5,7 @@
         <div class="caption-full">
             <h4 class="pull-right"><%= job.createdAt.toDateString() %></h4>
             <h4><a><%= job.title %></a></h4>
-            <p><%= job.description %></p>
+            <p class ="bodyText"><%= job.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= job.author.id %>"><strong><%= job.author.username %></strong></a>, <%= moment(job.createdAt).fromNow() %></em>
             </p>

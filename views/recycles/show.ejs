@@ -5,7 +5,7 @@
         <div class="caption-full">
             <h4 class="pull-right"><%= recycle.createdAt.toDateString() %></h4>
             <h4><a><%= recycle.title %></a></h4>
-            <p><%= recycle.description %></p>
+            <p class="bodyText"><%= recycle.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= recycle.author.id %>"><strong><%= recycle.author.username %></strong></a>, <%= moment(recycle.createdAt).fromNow() %></em>
             </p>

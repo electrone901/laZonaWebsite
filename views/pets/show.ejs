@@ -21,7 +21,7 @@
             <h4 class="pull-right"><%= pet.createdAt.toDateString() %></h4>
             <h4><a><%= pet.title %></a></h4>
             <span class="label label-info">Description</span>
-            <p><%= pet.description %></p>
+            <p class="bodyText"><%= pet.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= pet.author.id %>"><strong><%= pet.author.username %></strong></a>, <%= moment(pet.createdAt).fromNow() %></em>
             </p>

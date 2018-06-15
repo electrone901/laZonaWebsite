@@ -22,7 +22,7 @@
             <h4><a><%= service.title %></a></h4>
             <h4 class="pull-right">$<%= service.price %> per hour</h4>
             <span class="label label-info">Description</span>
-            <p><%= service.description %></p>
+            <p class="bodyText"><%= service.description %></p>
             <p>
                 <em>Submitted By <a href="/profile/<%= service.author.id %>"><strong><%= service.author.username %></strong></a>, <%= moment(service.createdAt).fromNow() %></em>
             </p>

@@ -5,30 +5,14 @@ const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Job.find({title: regex}).sort('-createdAt').exec(function(err, allJobs){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allJobs.length < 1){
-                    noMatch = "No jobs found";
-                }
-               res.render("jobs/index",{jobs: allJobs, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Job.find({}).sort('-createdAt').exec(function(err, alljob){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("jobs/index", {jobs: alljob, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Job.find({}).sort('-createdAt').exec(function(err, alljob){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("jobs/index", {jobs: alljob, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -48,6 +32,24 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             req.flash("donate", "Post Created");
             res.redirect("/jobs");
         }
+    });
+});
+router.get("/title", function(req, res){
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Job.find({title: regex}).sort('-createdAt').exec(function(err, allJobs){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allJobs.length < 1){
+                noMatch = "No jobs found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+        res.render("jobs/index",{jobs: allJobs, currentUser: req.user, noMatch: noMatch});
+       }
     });
 });
 

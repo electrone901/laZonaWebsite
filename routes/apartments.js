@@ -35,30 +35,14 @@ cloudinary.config({
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Apartment.find({name: regex}).sort('-createdAt').exec(function(err, allApartments){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allApartments.length < 1){
-                    noMatch = "No apartments found";
-                }
-                res.render("apartments/index",{apartments: allApartments, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Apartment.find({}).sort('-createdAt').exec(function(err, allapartments){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("apartments/index", {apartments: allapartments, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Apartment.find({}).sort('-createdAt').exec(function(err, allapartments){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("apartments/index", {apartments: allapartments, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
@@ -91,6 +75,44 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("apartments/new");
+});
+
+router.get("/title", function(req, res){
+    let noMatch = null;
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Apartment.find({name: regex}).sort('-createdAt').exec(function(err, allApartments){
+            if(err){
+                req.flash("error", err.message);
+            } 
+            else {
+                if(allApartments.length < 1){
+                    noMatch = "No apartments found for " + req.query.search;
+                }
+                else if(req.query.search){
+                    noMatch = "Here are the result for " + req.query.search;
+                }
+                res.render("apartments/index",{apartments: allApartments, currentUser: req.user, noMatch: noMatch});
+           }
+        });
+});
+
+router.get("/city", function(req, res){
+    let noMatch = null;
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Apartment.find({city: regex}).sort('-createdAt').exec(function(err, allApartments){
+            if(err){
+                req.flash("error", err.message);
+            } 
+            else {
+                if(allApartments.length < 1){
+                    noMatch = "No apartments found for " + req.query.search;
+                }
+                else if(req.query.search){
+                    noMatch = "Here are the result for " + req.query.search;
+                }
+                res.render("apartments/index",{apartments: allApartments, currentUser: req.user, noMatch: noMatch});
+           }
+        });
 });
 
 router.get("/:id", function(req, res){

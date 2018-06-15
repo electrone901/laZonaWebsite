@@ -1,17 +1,27 @@
 <% include ../partials/header %>
 
-    <header class="jumbotron">
+    <header class="jumbotron" id="orange">
         <div class="container">
             <h1>Apartments</h1>
             <p>
                 <a class="btn btn-primary btn-lg" href="/apartments/new">Add New Apartment</a>
             </p>
-            <form action="/apartments" method="GET" class="form-inline">
+            <form action="/apartments/title" method="GET" class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="text" name="search" placeholder="Title" class="form-control">
                     <button class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        Search
+                        Search By Title
+                    </button>
+                </div>
+            </form>
+            <p></p>
+            <form action="/apartments/city" method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="search" placeholder="City" class="form-control">
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Search By City
                     </button>
                 </div>
             </form>
