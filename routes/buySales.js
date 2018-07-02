@@ -24,30 +24,14 @@ cloudinary.config({
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        BuySale.find({name: regex}).sort('-createdAt').exec(function(err, allBuySales){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allBuySales.length < 1){
-                    noMatch = "No Sale found";
-                }
-                res.render("buySales/index",{buySales: allBuySales, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        BuySale.find({}).sort('-createdAt').exec(function(err, allBuySales){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("buySales/index", {buySales: allBuySales, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    BuySale.find({}).sort('-createdAt').exec(function(err, allBuySales){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("buySales/index", {buySales: allBuySales, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
@@ -66,6 +50,25 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
         req.flash("donate", "Post Created");
         res.redirect('/buySales/' + buySale.id);
         });
+    });
+});
+
+router.get("/name", function(req, res){
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    BuySale.find({name: regex}).sort('-createdAt').exec(function(err, allBuySales){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allBuySales.length < 1){
+                noMatch = "No Sale found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+            res.render("buySales/index",{buySales: allBuySales, currentUser: req.user, noMatch: noMatch});
+       }
     });
 });
 
