@@ -49,7 +49,9 @@
                             <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                             <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
                         <% } else { %>
-                            <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>"><a href="/profile/<%= currentUser.id%>">Signed In As <%= currentUser.username %></a></li>
+                            <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>">
+                                <a href="/profile/<%= currentUser.id%>"><img class="img-rounded profileImage" src="<%= currentUser.avatar %>" alt="User Image" /><%= currentUser.username %></a>
+                            </li>
                             <li><a href="/logout">Logout</a></li>
                         <% } %>
                     </ul>
