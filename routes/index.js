@@ -59,6 +59,10 @@ router.get("/howItWorks", function(req, res){
     res.render("howItWorks", {page: 'howItWorks'});
 });
 
+router.get("/socialMedia", function(req, res){
+    res.render("socialMedia", {page: 'socialMedia'});
+});
+
 router.post("/donate", function(req, res){
     let amount = req.body.amount;
     req.flash("success", "You donate $" + amount + " Thank You!!!");
