@@ -24,30 +24,14 @@ cloudinary.config({
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Event.find({name: regex}).sort('-createdAt').exec(function(err, allEvents){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allEvents.length < 1){
-                    noMatch = "No Event found";
-                }
-                res.render("events/index",{events: allEvents, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Event.find({}).sort('-createdAt').exec(function(err, allEvents){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("events/index", {events: allEvents, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Event.find({}).sort('-createdAt').exec(function(err, allEvents){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("events/index", {events: allEvents, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
@@ -66,6 +50,25 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
         req.flash("donate", "Post Created");
         res.redirect('/events/' + event.id);
         });
+    });
+});
+
+router.get("/title", function(req, res) {
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Event.find({title: regex}).sort('-createdAt').exec(function(err, allEvents){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allEvents.length < 1){
+                noMatch = "No Event found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+            res.render("events/index",{events: allEvents, currentUser: req.user, noMatch: noMatch});
+       }
     });
 });
 

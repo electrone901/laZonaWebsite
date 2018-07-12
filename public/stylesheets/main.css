@@ -99,6 +99,12 @@ background-color: #f1825a;
     white-space:pre-wrap;
 }
 
+.profileImage{
+    display: inline;
+    width: 27px;
+    margin-right: 5px;
+}
+
 #orange{
     background-color: #ef6230;
 }

@@ -24,30 +24,14 @@ cloudinary.config({
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Pet.find({title: regex}).sort('-createdAt').exec(function(err, allPets){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allPets.length < 1){
-                    noMatch = "No Pet found";
-                }
-                res.render("pets/index",{pets: allPets, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Pet.find({}).sort('-createdAt').exec(function(err, allPets){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("pets/index", {pets: allPets, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Pet.find({}).sort('-createdAt').exec(function(err, allPets){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("pets/index", {pets: allPets, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res){
@@ -66,6 +50,25 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
         req.flash("donate", "Post Created");
         res.redirect('/pets/' + pet.id);
         });
+    });
+});
+
+router.get("/title", function(req, res) {
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Pet.find({title: regex}).sort('-createdAt').exec(function(err, allPets){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allPets.length < 1){
+                noMatch = "No Pet found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+            res.render("pets/index",{pets: allPets, currentUser: req.user, noMatch: noMatch});
+       }
     });
 });
 

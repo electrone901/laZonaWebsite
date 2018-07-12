@@ -5,30 +5,14 @@ const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Education.find({title: regex}).sort('-createdAt').exec(function(err, allEducation){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allEducation.length < 1){
-                    noMatch = "No subjects found";
-                }
-                res.render("education/index",{education: allEducation, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Education.find({}).sort('-createdAt').exec(function(err, alleducation){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("education/index", {education: alleducation, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Education.find({}).sort('-createdAt').exec(function(err, alleducation){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("education/index", {education: alleducation, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -48,6 +32,25 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             req.flash("donate", "Post Created");
             res.redirect("/education");
         }
+    });
+});
+
+router.get("/title", function(req, res){
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Education.find({title: regex}).sort('-createdAt').exec(function(err, allEducation){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allEducation.length < 1){
+                noMatch = "No subjects found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+            res.render("education/index",{education: allEducation, currentUser: req.user, noMatch: noMatch});
+       }
     });
 });
 
