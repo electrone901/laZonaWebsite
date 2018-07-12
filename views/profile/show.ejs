@@ -7,7 +7,7 @@
                 <% if(user.avatar){ %>
                     <img src="<%= user.avatar %>" alt="user profile image">
                 <% } else { %>
-                    <img src="/images/sky.png" alt="user profile image">
+                    <img src="/images/defaulAvater.png" alt="user profile image">
                 <% } %>
             </div>
             <% if(currentUser && user._id.equals(currentUser._id)){ %>
