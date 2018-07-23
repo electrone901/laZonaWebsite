@@ -5,30 +5,14 @@ const middleware = require("../middleware/index.js");
 
 router.get("/", function(req, res){
     let noMatch = null;
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        Internship.find({title: regex}).sort('-createdAt').exec(function(err, allInternships){
-            if(err){
-                req.flash("error", err.message);
-            } 
-            else {
-                if(allInternships.length < 1){
-                    noMatch = "No internships found";
-                }
-               res.render("internships/index",{internships: allInternships, currentUser: req.user, noMatch: noMatch});
-           }
-        });
-    }
-    else{
-        Internship.find({}).sort('-createdAt').exec(function(err, allInternships){
-            if(err){
-                req.flash("error", err.message);
-            }
-            else{
-                res.render("internships/index", {internships: allInternships, currentUser: req.user, noMatch: noMatch});
-            }
-        });
-    }
+    Internship.find({}).sort('-createdAt').exec(function(err, allInternships){
+        if(err){
+            req.flash("error", err.message);
+        }
+        else{
+            res.render("internships/index", {internships: allInternships, currentUser: req.user, noMatch: noMatch});
+        }
+    });
 });
 
 router.post("/", middleware.isLoggedIn, function(req, res){
@@ -53,6 +37,24 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     });
 });
 
+router.get("/title", function(req, res) {
+    let noMatch = null;
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Internship.find({title: regex}).sort('-createdAt').exec(function(err, allInternships){
+        if(err){
+            req.flash("error", err.message);
+        } 
+        else {
+            if(allInternships.length < 1){
+                noMatch = "No internships found for " + req.query.search;
+            }
+            else if(req.query.search){
+                noMatch = "Here are the result for " + req.query.search;
+            }
+           res.render("internships/index",{internships: allInternships, currentUser: req.user, noMatch: noMatch});
+       }
+    });
+});
 
 router.get("/new", middleware.isLoggedIn, function(req, res){
     res.render("internships/new");
