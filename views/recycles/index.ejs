@@ -6,7 +6,7 @@
             <p>
                 <a class="btn btn-primary btn-lg" href="/recycles/new">Add New Recycle</a>
             </p>
-            <form action="/recycles" method="GET" class="form-inline">
+            <form action="/recycles/title" method="GET" class="form-inline">
                 <div class="form-group">
                     <input type="text" name="search" placeholder="Search By Title..." class="form-control">
                     <button class="btn btn-default">
@@ -19,9 +19,9 @@
     </header>
     
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
             <% if(noMatch !== null){ %>
-                <h3><%= noMatch %></h3>
+                <h3><%= noMatch %></h3></br>
             <% } %>
         </div>
         <% recycles.forEach(function(recycle){ %>
