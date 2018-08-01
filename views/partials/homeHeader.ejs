@@ -86,18 +86,16 @@
                      <h1>La Zonita</h1> 
                     <h3>Find What You Within Your Community</h3>
                 </hgroup>
-
-                <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                
+                <% if(!currentUser){ %>
+                    <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                <% } %>
 
                 <div class="sliderLink">
                     <a href="/apartments" class="btn btn-depth btn-blue">Find an Apartment</a>
                     <span class="h2 cursive mh20">or</span>
                     <a href="/jobs" class="btn btn-depth btn-red">Find a Job</a>
-
                 </div>
-
-
-
 
               </div>
             </div>
@@ -108,8 +106,10 @@
                 <hgroup>
                     <h1>Local businesses</h1>
                     <h3>Share Authentic Experiences </h3>        
-                </hgroup>       
-                <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                </hgroup>
+                <% if(!currentUser){ %>
+                    <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                <% } %>
               </div>
             </div>
 
@@ -119,7 +119,9 @@
                 <hgroup>
                     <h1>Ready for your next adventure?</h1>        
                 </hgroup>
-                <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                <% if(!currentUser){ %>
+                    <a class="btn btn-hero btn-lg" role="button" href="/register"> Join  Now </a>
+                <% } %>
               </div>
             </div>
           </div>
