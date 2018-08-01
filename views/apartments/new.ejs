@@ -1,74 +1,74 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Create a New Apartment</h1>
+        <h1 class="center">Crear un Nuevo Apartamento</h1>
         <div class="form">
             <form action="/apartments" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="label label-info" for="name">Name</label>
-                    <input class="form-control" type="text" name="apartment[name]" placeholder="name">
+                    <label class="label label-info" for="name">Nombre</label>
+                    <input class="form-control" type="text" name="apartment[name]" placeholder="Nombre">
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="price">Price</label>
+                            <label class="label label-info" for="price">Precio</label>
                             <div class="input-group">
                                 <div class="input-group-addon">$</div>
-                                <input class="form-control" type="number" name="apartment[price]" placeholder="price" min="1" max="9999999" step="1">
+                                <input class="form-control" type="number" name="apartment[price]" placeholder="Precio" min="1" max="9999999" step="1">
                                 <div class="input-group-addon">.00</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="image">Image</label>
+                            <label class="label label-info" for="image">Imagen</label>
                             <input type="file" id="image" name="image" accept="image/*" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="contact">Contact</label>
-                    <textarea class="form-control" name="apartment[contact]" placeholder="contact" rows="3"></textarea>
+                    <label class="label label-info" for="contact">Contacto</label>
+                    <textarea class="form-control" name="apartment[contact]" placeholder="Contacto" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="street">Street</label>
-                    <input class="form-control" type="text" name="apartment[street]" placeholder="street">
+                    <label class="label label-info" for="street">Calle</label>
+                    <input class="form-control" type="text" name="apartment[street]" placeholder="Calle">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="city">City</label>
-                    <input class="form-control" type="text" name="apartment[city]" placeholder="city">
+                    <label class="label label-info" for="city">Ciudad</label>
+                    <input class="form-control" type="text" name="apartment[city]" placeholder="Ciudad">
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="state">State</label>
-                            <input class="form-control" type="text" name="apartment[state]" placeholder="state">
+                            <label class="label label-info" for="state">Estado</label>
+                            <input class="form-control" type="text" name="apartment[state]" placeholder="Estado">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="zipcode">Zipcode</label>
-                            <input class="form-control" type="number" name="apartment[zipcode]" placeholder="zipcode" min="10000" max="99999">
+                            <label class="label label-info" for="zipcode">Código Postal</label>
+                            <input class="form-control" type="number" name="apartment[zipcode]" placeholder="Código Postal" min="10000" max="99999">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="location">Location</label>
-                    <input class="form-control" type="text" name="location" id="location" placeholder="Location">
+                    <label class="label label-info" for="location">Ubicación</label>
+                    <input class="form-control" type="text" name="location" id="location" placeholder="Ubicación">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
-                    <textarea class="form-control" name="apartment[description]" placeholder="description" rows="5"></textarea>
+                    <label class="label label-info" for="description">Descripción</label>
+                    <textarea class="form-control" name="apartment[description]" placeholder="Descripción" rows="5"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="note">Note</label>
-                    <textarea class="form-control" name="apartment[note]" placeholder="note" rows="5"></textarea>
+                    <label class="label label-info" for="note">Nota</label>
+                    <textarea class="form-control" name="apartment[note]" placeholder="Nota" rows="5"></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/apartments">Go back</a>
+            <a href="/apartments">Regresa</a>
         </div>
     </div>
     

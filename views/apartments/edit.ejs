@@ -1,70 +1,70 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Edit <%= apartment.name %></h1>
+        <h1 class="center">Editar <%= apartment.name %></h1>
         <div class="form">
             <form action="/apartments/<%= apartment._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="label label-info" for="name">Name</label>
+                    <label class="label label-info" for="name">Nombre</label>
                     <input class="form-control" type="text" name="apartment[name]" value="<%= apartment.name %>">
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="price">Price</label>
+                            <label class="label label-info" for="price">Precio</label>
                             <input class="form-control" type="number" name="apartment[price]" value="<%= apartment.price %>" min="0.01" max="9999999" step="0.01">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="image">Image</label>
+                            <label class="label label-info" for="image">Imagen</label>
                             <input type="file" id="image" name="image" accept="image/*">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="contact">Contact</label>
+                    <label class="label label-info" for="contact">Contacto</label>
                     <textarea class="form-control" name="apartment[contact]" rows="5"><%= apartment.contact %></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="street">Street</label>
+                    <label class="label label-info" for="street">Calle</label>
                     <input class="form-control" type="text" name="apartment[street]" value="<%= apartment.street %>">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="city">City</label>
+                    <label class="label label-info" for="city">Ciudad</label>
                     <input class="form-control" type="text" name="apartment[city]" value="<%= apartment.city %>">
                 </div>
                  <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="state">State</label>
+                            <label class="label label-info" for="state">Estado</label>
                             <input class="form-control" type="text" name="apartment[state]" value="<%= apartment.state %>">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="zipcode">Zipcode</label>
+                            <label class="label label-info" for="zipcode">Código Postal</label>
                             <input class="form-control" type="number" name="apartment[zipcode]" value="<%= apartment.zipcode %>" min="10000" max="99999">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="location">Location</label>
+                    <label class="label label-info" for="location">Ubicación</label>
                     <input class="form-control" type="text" name="location" id="location" value="<%= apartment.location %>">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
+                    <label class="label label-info" for="description">Descripción</label>
                     <textarea class="form-control" name="apartment[description]" rows="5"><%= apartment.description %></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="note">Note</label>
+                    <label class="label label-info" for="note">Nota</label>
                     <textarea class="form-control" name="apartment[note]" rows="5"><%= apartment.note %></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/apartments/<%= apartment._id %>">Go back</a>
+            <a href="/apartments/<%= apartment._id %>">Regresa</a>
         </div>
     </div>
     
