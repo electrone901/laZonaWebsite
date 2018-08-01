@@ -57,6 +57,11 @@ background-color: #f1825a;
     text-align: center;
 }
 
+.imageCenter{
+    display: block;
+    margin: 25px auto;
+}
+
 .form {
     width: 40%;
     margin: 25px auto;
