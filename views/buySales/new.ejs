@@ -1,40 +1,40 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Create a New Sale</h1>
+        <h1 class="center">Crear una Nueva Venta</h1>
         <div class="form">
             <form action="/buySales" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="label label-info" for="name">Name</label>
-                    <input class="form-control" type="text" name="buySale[name]" placeholder="name">
+                    <label class="label label-info" for="name">Nombre</label>
+                    <input class="form-control" type="text" name="buySale[name]" placeholder="Nombre">
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="price">Price</label>
+                            <label class="label label-info" for="price">Precio</label>
                             <div class="input-group">
                                 <div class="input-group-addon">$</div>
-                                <input class="form-control" type="number" name="buySale[price]" placeholder="price" min="1" max="9999999" step="1">
+                                <input class="form-control" type="number" name="buySale[price]" placeholder="0" min="1" max="9999999" step="1">
                                 <div class="input-group-addon">.00</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="label label-info" for="image">Image</label>
+                            <label class="label label-info" for="image">Imagen</label>
                             <input type="file" id="image" name="image" accept="image/*" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
-                    <textarea class="form-control" name="buySale[description]" placeholder="description" rows="5"></textarea>
+                    <label class="label label-info" for="description">Descripción</label>
+                    <textarea class="form-control" name="buySale[description]" placeholder="Descripción" rows="5"></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/buySales">Go back</a>
+            <a href="/buySales">Regresa</a>
         </div>
     </div>
 
