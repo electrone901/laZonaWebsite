@@ -1,30 +1,30 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Edit <%= event.title %></h1>
+        <h1 class="center">Editar <%= event.title %></h1>
         <div class="form">
             <form action="/events/<%= event._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label class="label label-info" for="title">Title</label>
+                    <label class="label label-info" for="title">Título</label>
                     <input class="form-control" type="text" name="event[title]" value="<%= event.title %>">
                 </div>
                 <div class="form-group">
-                    <label for="image">Image</label>
+                    <label for="image">Imagen</label>
                     <input type="file" id="image" name="image" accept="image/*">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
+                    <label class="label label-info" for="description">Descripción</label>
                     <textarea class="form-control" name="event[description]" rows="5"><%= event.description %></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="location">Location</label>
+                    <label class="label label-info" for="location">Ubicación</label>
                     <input class="form-control" type="text" name="event[location]" value="<%= event.location %>">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/events/<%= event._id %>">Go back</a>
+            <a href="/events/<%= event._id %>">Regresa</a>
         </div>
     </div>
 
