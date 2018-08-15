@@ -1,3 +1,3 @@
-The Zone
+LaZonita
 
-https://lazona.herokuapp.com/
+https://lazonita.herokuapp.com/
