@@ -2,16 +2,16 @@
 
     <header class="jumbotron" id="orange">
         <div class="container">
-            <h1>Pet</h1>
+            <h1>Mascota Perdida</h1>
             <p>
-                <a class="btn btn-primary btn-lg" href="/pets/new">Add Pet</a>
+                <a class="btn btn-primary btn-lg" href="/pets/new">Añadir mascota</a>
             </p>
             <form action="/pets/title" method="GET" class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="text" name="search" placeholder="Búsqueda por título..." class="form-control">
                     <button class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        Search
+                        Buscar
                     </button>
                 </div>
             </form>
@@ -34,7 +34,7 @@
                         <h4><%= pet.title %></h4>
                     </div>
                     <p>
-                        <a href="/pets/<%= pet._id %>" class="btn btn-primary">More Info</a>
+                        <a href="/pets/<%= pet._id %>" class="btn btn-primary">Más Información</a>
                     </p>
                 </div>
             </div>
