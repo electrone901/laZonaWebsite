@@ -2,16 +2,16 @@
 
     <header class="jumbotron" id="orange">
         <div class="container">
-            <h1>Service</h1>
+            <h1>Servicio</h1>
             <p>
-                <a class="btn btn-primary btn-lg" href="/services/new">Add New Service</a>
+                <a class="btn btn-primary btn-lg" href="/services/new">Agregar Nuevo Servicio</a>
             </p>
             <form action="/services/title" method="GET" class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="search" placeholder="Search By Title..." class="form-control">
+                    <input type="text" name="search" placeholder="Búsqueda por título..." class="form-control">
                     <button class="btn btn-default">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        Search
+                        Buscar
                     </button>
                 </div>
             </form>
@@ -35,7 +35,7 @@
                         <h5>$<%= service.price %></h5>
                     </div>
                     <p>
-                        <a href="/services/<%= service._id %>" class="btn btn-primary">More Info</a>
+                        <a href="/services/<%= service._id %>" class="btn btn-primary">Más información</a>
                     </p>
                 </div>
             </div>
