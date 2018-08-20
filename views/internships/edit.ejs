@@ -1,30 +1,30 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Edit <%= internship.title %></h1>
+        <h1 class="center">Editar <%= internship.title %></h1>
         <div class="form">
             <form action="/internships/<%= internship._id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <label class="label label-info" for="title">Title</label>
+                    <label class="label label-info" for="title">Título</label>
                     <input class="form-control" type="text" name="internship[title]" value="<%= internship.title %>">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="companyName">Company Name</label>
+                    <label class="label label-info" for="companyName">Nombre de Empresa</label>
                     <input class="form-control" type="text" name="internship[companyName]" value="<%= internship.companyName %>">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
+                    <label class="label label-info" for="description">Descripción</label>
                     <textarea class="form-control" name="internship[description]" rows="5"><%= internship.description %></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="location">Location</label>
+                    <label class="label label-info" for="location">Ubicación</label>
                     <input class="form-control" type="text" name="internship[location]" value="<%= internship.location %>">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/internships/<%= internship._id %>">Go back</a>
+            <a href="/internships/<%= internship._id %>">Regresa</a>
         </div>
     </div>
 
