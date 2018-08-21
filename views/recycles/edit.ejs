@@ -1,22 +1,22 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <h1 class="center">Edit <%= recycle.title %></h1>
+        <h1 class="center">Editar <%= recycle.title %></h1>
         <div class="form">
             <form action="/recycles/<%= recycle._id %>?_method=PUT" method="POST">
                 <div class="form-group">
-                    <label class="label label-info" for="title">Title</label>
+                    <label class="label label-info" for="title">Título</label>
                     <input class="form-control" type="text" name="recycle[title]" value="<%= recycle.title %>">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="description">Description</label>
+                    <label class="label label-info" for="description">Descripción</label>
                     <textarea class="form-control" name="recycle[description]" rows="5"><%= recycle.description %></textarea>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                    <button class="btn btn-lg btn-primary btn-block">Enviar</button>
                 </div>
             </form>
-            <a href="/recycles/<%= recycle._id %>">Go back</a>
+            <a href="/recycles/<%= recycle._id %>">Regresa</a>
         </div>
     </div>
 
