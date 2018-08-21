@@ -41,14 +41,14 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="<%= typeof page !== 'undefined' && page === 'donate' ? 'active' : '' %>"><a href="/donate">Donate</a></li>
-                        <li class="<%= typeof page !== 'undefined' && page === 'howItWorks' ? 'active' : '' %>"><a href="/howItWorks">How It Works</a></li>
+                        <li class="<%= typeof page !== 'undefined' && page === 'donate' ? 'active' : '' %>"><a href="/donate">Donar</a></li>
+                        <li class="<%= typeof page !== 'undefined' && page === 'howItWorks' ? 'active' : '' %>"><a href="/howItWorks">Cómo Funciona</a></li>
                         <li class="<%= typeof page !== 'undefined' && page === 'socialMedia' ? 'active' : '' %>"><a href="/socialMedia">Social Media</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <% if(!currentUser){ %>
-                            <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
-                            <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+                            <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Iniciar Sesión</a></li>
+                            <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Regístrate</a></li>
                         <% } else { %>
                             <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>">
                                 <a href="/profile/<%= currentUser.id%>">
