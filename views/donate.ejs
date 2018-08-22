@@ -1,41 +1,34 @@
 <% include ./partials/header %>
     
     <div class="jumbotron">
-      <h2>We Need You</h2>
-      <p>Help us to help more people. We offer a variety of programs and services that respond to the specific needs of immigrant families..</p>
+      <h2>Te Necesitamos</h2>
+      <p>Ayúdanos a ayudar a más personas Ofrecemos una variedad de programas y servicios que responden a las necesidades específicas de las familias inmigrantes.</p>
       
-
       <div class="row">
         <div class="col-lg-7">
             <img class="img-responsive" src="/images/1.jpg" alt="donate">
         </div><!-- /.col-lg-6 -->
         
         <div class="col-lg-5">
-            <h1>Donate</h1>
+            <h1>Donar</h1>
             <form action="/donate" method="POST">
                 <div class="form-group">
-                    <label class="label label-info" for="creditCart">Credit Cart</label>
-                    <input class="form-control"type="text" name="creditCart" placeholder="Credit Card">
+                    <label class="label label-info" for="creditCart">Tarjeta de Crédito</label>
+                    <input class="form-control"type="text" name="creditCart" placeholder="000-000-0000">
                 </div>
                 <div class="form-group">
-                    <label class="label label-info" for="amount">Amount</label>
-                    <input class="form-control"type="text" name="amount" placeholder="Amount">
+                    <label class="label label-info" for="amount">Cantidad</label>
+                    <input class="form-control"type="text" name="amount" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-lg btn-primary btn-block"type="submit" value="Donate">
+                    <input class="btn btn-lg btn-primary btn-block"type="submit" value="Donar">
                 </div>
             </form>
-            <a href="/">Go back</a>
+            <a href="/">Regresa</a>
         
         </div><!-- /.col-lg-6 -->
       </div><!-- /.row -->
 
-
-      
-
-
     </div>
-
-    
 
 <% include ./partials/footer %>
